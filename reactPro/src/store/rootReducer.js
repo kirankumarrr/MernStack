@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-// import catalog from "store/catalog/reducer";
+import auth from "store/auth/reducer";
 
 export default combineReducers({
-    // catalog
+    auth
 });

@@ -4,7 +4,7 @@ import {
     LOGOUT
 } from 'store/types'
 const initialState = {
-    
+    isLoggedIn : false
 };
 
 export default function (state = initialState, action) {

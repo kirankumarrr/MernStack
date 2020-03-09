@@ -1,11 +1,28 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+//Using Passport we can make routes Private : Authetication Module
+//This also has middlewares
+const passport = require('passport');
+//Note when you add bodyParser you need to add middlewares
+// API Routes
+const users =  require('./routes/api/user');
 
 const app = express();
 
 //DB config
 const db =  require('./config/keys').mongoURI;
+
+//Body Parser Middleware
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
+//Passport middlewares
+app.use(passport.initialize());
+
+//Passport Config
+require('./config/passport')(passport);
 
 //Connect to MongoDB
 /**
@@ -22,6 +39,10 @@ mongoose.connect(db,{ useUnifiedTopology:true , useNewUrlParser: true, })
 app.get('/',(req,res)=>{
     res.send('Hello World');
 });
+
+
+// Use Routes 
+app.use('/api/users',users);
 
 const port = process.env.PORT || 5000
 

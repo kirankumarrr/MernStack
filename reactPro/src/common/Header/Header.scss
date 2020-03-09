@@ -1,0 +1,22 @@
+@import "src/css/_variables";
+.header-wrapper{
+    background: $Blue;
+    // height: 60px;
+    position: fixed;
+    width: 100%;
+   
+    .header-container{
+        // line-height: 3.8;
+        .col-container{
+            .navbar-container{
+                .login{
+                    margin-left: 10px;
+                }
+                #basic-nav-dropdown{
+                    color: $White;  
+                }  
+            }
+        }
+    }
+    
+}

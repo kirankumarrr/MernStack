@@ -4,13 +4,14 @@ import {
     LOGOUT
 } from 'store/types'
 const initialState = {
-    isLoggedIn : false
+    isLoggedIn : false,
+    accessToken:null
 };
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        // case CATALOGFETCHPRODUCTS:
-        //     return { ...state, catalogPoducts: action.payload };
+        case LOGIN:
+            return { ...state, accessToken: action.payload.token };
         default:
             return state;
     }

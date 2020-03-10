@@ -34,15 +34,20 @@ export const singUp = (data) => async dispatch => {
     // });
 };
 
-// export const login = (product, productPrice) => async dispatch => {
-//     dispatch({
-//         type: ADDTOCART,
-//         payload: {
-//             product,
-//             productPrice
-//         }
-//     });
-// };
+export const submitLogin = (user,history) => async dispatch => {
+    const res = await axios.post(`api/users/login`, user
+    ).then(response => {
+        localStorage.setItem('reactProIsLoggedIn',response.data.token);
+        debugger
+        history.push('./')
+        return response.data
+    }).catch(error => error);
+   
+    dispatch({
+        type: LOGIN,
+        payload: res
+    });
+};
 
 // export const logout = (product) => async dispatch => {
 //     dispatch({

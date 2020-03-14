@@ -11,8 +11,16 @@ import Login from 'common/Authentication/Login'
 
 const App = () =>{
 
-  const isLoggednIn = localStorage.getItem('reactProIsLoggedIn') === null ? false : true  
+  let isLoggednIn;
   const {accessToken} =useSelector(state=>state.auth) 
+
+  //jwtToken
+  var ab = document.cookie.split(';').filter(ele=>ele.startsWith('jwtToken'));
+  if(ab.length>0){
+    isLoggednIn =  true  
+  }else{
+    isLoggednIn = false
+  }
   console.log("accessToken",accessToken);
   return (
     

@@ -8,9 +8,14 @@
 import {
     SIGNUP,
     LOGIN,
-    LOGOUT
+    LOGOUT,
+    CURRENTUSER,
+    SET_CURRENT_USER
 } from 'store/types'
 import axios from "axios";
+import setAuthToken from 'utils/setAuthToken';
+
+import jwt_decode from 'jwt-decode';
 
 export const singUp = (data) => async dispatch => {
     // dispatch({
@@ -37,9 +42,21 @@ export const singUp = (data) => async dispatch => {
 export const submitLogin = (user,history) => async dispatch => {
     const res = await axios.post(`api/users/login`, user
     ).then(response => {
+        // debugger;
+        var dt = new Date()
+        var setTime = dt.setSeconds( dt.getSeconds() + 1000 );
+        //dt.setSeconds( dt.getSeconds() + 10 );
+        console.log('TIME',new Date(setTime).toUTCString())
+        document.cookie =`jwtToken=${response.data.token}; expires= ${new Date(setTime).toUTCString()}`
         localStorage.setItem('reactProIsLoggedIn',response.data.token);
-        debugger
-        history.push('./')
+      
+        //Set token to header
+        setAuthToken(response.data.token);
+        // Decode token to get user
+        const decode= jwt_decode(response.data.token);
+        console.log('decode',decode)
+        dispatch(setCurrentUser(decode));
+        history.push('./');
         return response.data
     }).catch(error => error);
    
@@ -49,9 +66,10 @@ export const submitLogin = (user,history) => async dispatch => {
     });
 };
 
-// export const logout = (product) => async dispatch => {
-//     dispatch({
-//         type: ADDTOWISHLIST,
-//         payload: product
-//     });
-// };
+export const setCurrentUser = (decoded) => async dispatch => {
+    // debugger
+    dispatch({
+        type: SET_CURRENT_USER,
+        payload: decoded
+    });
+};

@@ -25,54 +25,54 @@ router.get('/test',(req,res)=>{
 // @desc Register user route
 // @access Public 
 router.post('/register',(req,res)=>{
-
+    console.log("req.body",req.body)
     const {errors, isValid} = validateRegisterInput(req.body)
-
+    console.log("Valid Register ? ",isValid)
     if(!isValid){
         return res.status(400).json(errors);
-    }
-
-    User.findOne({email:req.body.email})
-    .then(user=>{
-        if(user){
-            errors.email = 'Email already exists'
-            return res.status(400).json({email:'Email already Exists!!!'});
-        }else{
-             // Read data from request User then pass into Schema
-             const avatar = gravatar.url(req.body.email,{
-                s:'200', // Size
-                r:'pg', // Reading 
-                d:'mm' // default
-            })
-            const {
-                name,
-                email,
-                password
-            } = req.body;
-            const newUser = new User({
-                name,
-                email,
-                avatar,
-                password
-            });
-            // why genSalt for ?
-            bcrypt.genSalt(10,(err,salt)=>{
-                // Hashing the password using bcrypt
-                bcrypt.hash(newUser.password,salt,(err,hash)=>{
-                    if(!err){
-                        newUser.password = hash;
-                        newUser.save()
-                                .then(user=>{
-                                    return res.json(user);
-                                })
-                                .catch(err=>console.log(err))
-                    }else{
-                        throw err;
-                    }
+    }else{
+        User.findOne({email:req.body.email})
+        .then(user=>{
+            if(user){
+                errors.email = 'Email already exists'
+                return res.status(400).json({email:'Email already Exists!!!'});
+            }else{
+                 // Read data from request User then pass into Schema
+                 const avatar = gravatar.url(req.body.email,{
+                    s:'200', // Size
+                    r:'pg', // Reading 
+                    d:'mm' // default
                 })
-            })
-        }
-    })
+                const {
+                    name,
+                    email,
+                    password
+                } = req.body;
+                const newUser = new User({
+                    name,
+                    email,
+                    avatar,
+                    password
+                });
+                // why genSalt for ?
+                bcrypt.genSalt(10,(err,salt)=>{
+                    // Hashing the password using bcrypt
+                    bcrypt.hash(newUser.password,salt,(err,hash)=>{
+                        if(!err){
+                            newUser.password = hash;
+                            newUser.save()
+                                    .then(user=>{
+                                        return res.json(user);
+                                    })
+                                    .catch(err=>console.log(err))
+                        }else{
+                            throw err;
+                        }
+                    })
+                })
+            }
+        })
+    }
 });
 
 

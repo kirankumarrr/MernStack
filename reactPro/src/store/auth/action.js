@@ -6,38 +6,17 @@
 */
 
 import {
-    SIGNUP,
+    SIGN_UP,
     LOGIN,
     LOGOUT,
     CURRENTUSER,
-    SET_CURRENT_USER
+    SET_CURRENT_USER,
+    SIGN_UP_ERROR
 } from 'store/types'
 import axios from "axios";
 import setAuthToken from 'utils/setAuthToken';
 
 import jwt_decode from 'jwt-decode';
-
-export const singUp = (data) => async dispatch => {
-    // dispatch({
-    //     type: SHOWSPINNER,
-    //     payload: true
-    // });
-    // const res = await axios.post(
-    //     `https://api.musement.com/api/v3/venues/164/activities`
-    // ).then(response => {
-    //     return response.data
-    // }).catch(error => error)
-    dispatch({
-        type: SIGNUP,
-        payload: {
-            "user": "kiran"
-        }
-    });
-    // dispatch({
-    //     type: HIDESPINNER,
-    //     payload: false
-    // });
-};
 
 export const submitLogin = (user,history) => async dispatch => {
     const res = await axios.post(`api/users/login`, user
@@ -72,4 +51,20 @@ export const setCurrentUser = (decoded) => async dispatch => {
         type: SET_CURRENT_USER,
         payload: decoded
     });
+};
+
+export const signUp = (data) => async dispatch => {
+    const res = await axios.post(`api/users/register`, data)
+        .then(response =>{
+            dispatch({
+                type: SIGN_UP,
+                payload:response
+            });
+        })
+        .catch(error => {
+            dispatch({
+                type: SIGN_UP_ERROR,
+                payload: error
+            });
+        });
 };

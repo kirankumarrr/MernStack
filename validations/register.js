@@ -35,11 +35,11 @@ module.exports = function validateRegisterInput(data){
      * Field Validations Lengths START
     */
     // Set Name length 
-    if(!Validator.isLength(data.name, {min:2,max:30})){
+    if( Validator.isLength(data.name, {min:2,max:30})){
         errors.name = 'Name must be between 2 to 30 characters';
     }
-    if(!Validator.isLength(data.password, {min:6,max:30})){
-        errors.password = 'Passwors must be atleast 6 characters';
+    if(Validator.isLength(data.password, {min:6,max:30})){
+        errors.password = 'Password must be atleast 6 characters';
    }
     
     /**
@@ -59,7 +59,7 @@ module.exports = function validateRegisterInput(data){
     /**
      * Field Pattern Check END
     */
-
+    console.log("errors",{errors})
     return {
         errors,
         isValid : checkIsEmpty(errors)

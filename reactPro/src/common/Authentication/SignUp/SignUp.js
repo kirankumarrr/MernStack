@@ -1,28 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { submitLogin } from "store/auth/action";
-// import "./SingUp.scss";
-
+import { signUp } from "store/auth/action";
 import Input from 'common/Authentication/Form/Input/Input'
+import "./SignUp.scss";
 
 const SingUp = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const {a} =useSelector(state=>state.dashboard)
-  const [user, setUser] = useState({ email: "", password: "" });
+
+  const [formData, setFormData] = useState({});
+  const [formErrors, setFormErrors] = useState({})
 
   const handleSubmit = () => {
-    dispatch(submitLogin(user, history));
-  };
-  const setField = (e) => {
-    const currentUser = Object.assign({}, user);
-    currentUser[e.target.name] = e.target.value;
-    setUser(currentUser);
+    debugger;
+    dispatch(signUp(formData));
   };
 
-  const [formData, setFormData] = useState({})
+  const { isSignUpSuccess } = useSelector(state=>state.auth);
+
+  useEffect(() => {
+    console.log("isSignUpSuccess",isSignUpSuccess)
+  }, [isSignUpSuccess])
 
   let formObject = [
       {
@@ -31,7 +31,11 @@ const SingUp = (props) => {
         placeholder:'Enter name',
         label:'Name',
         regex:'',
-       required:true
+        validations:[{
+          task:"required",
+          errorMessage:"Name field is required",  
+        }],
+        errors:[]
       },
       {
         type:'text',
@@ -39,58 +43,88 @@ const SingUp = (props) => {
         placeholder:'Enter Email',
         label:'Email',
         regex:'',
-        required:true
+        validations:[
+          {
+            task:"email",
+            errorMessage:"email is invalid",
+          },
+          {
+          task:"required",
+          errorMessage:"Email field is required" 
+        }
+        ],
+        errors:[]
       },
       {
         type:'password',
         name:'password',
         placeholder:'Enter password',
-        label:'password',
+        label:'Password',
         regex:'',
-        required:true
+        validations:[{
+          task:"required",
+          errorMessage:"Password field is required",
+        }],
+        errors:[]
       },
       {
-        type:'password2',
-        name:'email',
+        type:'password',
+        name:'password2',
         placeholder:'Enter Confirm password',
         label:'Confirm Password',
         regex:'',
-        required:true
+        validations:[{
+          task:"required",
+          errorMessage:"Confirm Password field is required",
+        }]
       }
   ]
 
-  const onChange =(value,field)=>{
+  const onChange =({value,field,errorMessage})=>{
         const existingForm = Object.assign({},formData);
-        if(value && field){
-            existingForm[field] = value;
-        }
+        const existingErrors = Object.assign({},formErrors);
+        existingForm[field] = value;
+        existingErrors[field]= errorMessage
+        console.log("existingErrors",existingErrors)
+        setFormErrors(existingErrors)
         setFormData(existingForm)
     }
-
+    console.log("Object.values(formErrors)",Object.values(formErrors))
+    const isFormValid = (Object.values(formErrors).length>0 
+                        && Object.values(formErrors).filter(err=>{
+                          console.log("isFormValid err",!!err,"0>",err)
+                            return !!err
+                        })) || null;
+                        console.log("isFormValid",isFormValid)             
+                        
   return (
-    <div className="login-container login">
-      {
-          formObject.map((item,id)=>{
-              const keyIn = `${id}-form`
-              return (
-                <Input 
-                    key={keyIn}
-                    onChange={onChange}
-                    item={item}
-                    formData={formData}
-                   
-              />
-              )
-          })
-      }
-      <div className="submit-btn" onClick={handleSubmit}>
-        SingUp
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+    <div className="signUp-container">
+      <form className="sing-up" autocomplete="off">
+        {
+            formObject.map((item,id)=>{
+                const keyIn = `${id}-form`
+                return (
+                  <Input 
+                      key={keyIn}
+                      onChange={onChange}
+                      item={item}
+                      formData={formData}
+                      formError={formErrors[item.name]}
+                />
+                )
+            })
+        }
+        <div className={`submit-btn ${isFormValid===null || isFormValid.length!==0  ? 'disabled': ''}`}
+           onClick={ isFormValid!==null && isFormValid.length===0 ? handleSubmit: null}>
+          Sign Up
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </form>
     </div>
+    
   );
 };
 

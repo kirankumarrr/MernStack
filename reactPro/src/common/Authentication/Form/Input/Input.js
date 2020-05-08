@@ -1,37 +1,73 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import validator from 'validator';
+import React, {useState} from 'react'
+import PropTypes from 'prop-types';
+
+import {  ExclamationOutlined }  from '@ant-design/icons';
+
+import './Input.scss';
 
 const Input = ({
     onChange,
    item,
-   formData
+   formData,
+   formError
 }) => {
+
+    const [errors, setErrors] = useState([])
 
     const { 
         type,
         name,
         placeholder,
         label,
-        required
+        required,
+        validations,
     } = item
 
     const setField =(e)=>{
-        onChange(e.target.value,name)
+        const {value} = e.target;
+       
+        let collectFieldDetails={
+            value,
+            field:name
+        };
+        validations.forEach(element => {
+            if(element.task=== 'email' && !validator.isEmail(value)){
+                collectFieldDetails.errorMessage= element.errorMessage;
+            }
+            else if(element.task=== 'required' && validator.isEmpty(value)){
+                collectFieldDetails.errorMessage= element.errorMessage;
+            }
+        }); 
+        onChange(collectFieldDetails)
     }
-
-    return (
+    return [
         <div className="input-item">
+            
             <input
-            type={type}
-            name={name}
-            onChange={(e) => setField(e)}
-            placeholder={placeholder}
-            value={formData[name] || ''}
-            required={required}
+                type={type}
+                id={name}
+                name={name}
+                onChange={(e) => setField(e)}
+                onBlur={e=>setField(e)}
+                placeholder={placeholder}
+                value={formData[name] || ''}
+                autocomplete="false" 
             />
-            <label htmlFor="email">{label} </label>
-      </div>
-    )
+            <label htmlFor={name}>{label} </label>
+            
+      </div>,
+      <>
+      {
+         formError!==undefined && formError!=='' && <div className="error-container">
+        <span className="error-layer">
+            <ExclamationOutlined />
+            <span className="error-msg">{formError}</span>
+        </span>
+        </div>
+      }
+      </>
+    ]
 }
 
 Input.propTypes = {

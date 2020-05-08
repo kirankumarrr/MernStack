@@ -10,7 +10,6 @@ import Header from "common/Header/Header"
 import Login from 'common/Authentication/Login'
 import SingUp from 'common/Authentication/SignUp/SignUp';
 import NavBar from 'common/NavBar/NavBar';
-
 const App = () =>{
 
   let isLoggednIn;

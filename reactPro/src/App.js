@@ -8,6 +8,8 @@ import './App.scss';
 import Dashboard from 'container/Dashboard/Dashboard';
 import Header from "common/Header/Header"
 import Login from 'common/Authentication/Login'
+import SingUp from 'common/Authentication/SignUp/SignUp';
+import NavBar from 'common/NavBar/NavBar';
 
 const App = () =>{
 
@@ -25,7 +27,8 @@ const App = () =>{
   return (
     
       <div className='app-container'>
-        <Header />
+        <NavBar />
+        <main>
         <div className="main-container">
           <Route exact path="/" 
             render={() =>(
@@ -33,6 +36,8 @@ const App = () =>{
             : (<Route component={Login} />)
           )} />
         </div>
+        <Route exact path="/signup" component={SingUp} />
+        </main>
         {/* <Footer /> */}
       </div>
    

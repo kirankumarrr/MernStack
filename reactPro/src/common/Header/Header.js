@@ -70,13 +70,13 @@ const Header = props => {
                                 <ButtonToolbar className="signup"
                                 // onClick={singUp()}
                                 >
-                                    <Link to="/student/signUp">  <Button variant="dark">Sign Up</Button></Link>
+                                    <Link to="/signUp">  <Button variant="dark">Sign Up</Button></Link>
 
                                 </ButtonToolbar>
                                 <ButtonToolbar className="login"
                                 // onClick={login()}
                                 >
-                                    <Link to="/student/login"> <Button variant="dark">Login</Button></Link>
+                                    <Link to="/login"> <Button variant="dark">Login</Button></Link>
 
                                 </ButtonToolbar>
                             </Navbar.Collapse>

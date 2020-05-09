@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
     "minimist": "^1.2.5",
     "mongoose": "^5.9.12",
     "passport": "^0.4.1",

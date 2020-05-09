@@ -155,7 +155,20 @@
             }
         }
     }
-
+    .error-container{
+        .error-layer{
+            .error-msg{
+                color: red;
+            }
+            .anticon{
+                svg{
+                    path{
+                        color: red;   
+                    }
+                }
+            }
+        }
+    }
 }
 
 button {

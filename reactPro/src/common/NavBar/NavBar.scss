@@ -102,9 +102,11 @@
             }
         }
         .nav-link{
-          svg{
-            path{
-              fill:blue;
+          &:hover{
+            svg{
+              path{
+                fill:blue;
+              }
             }
           }
         }

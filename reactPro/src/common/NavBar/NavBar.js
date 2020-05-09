@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import {signOut, setCurrentUser } from 'store/auth/action'
+import { useSelector, useDispatch } from 'react-redux';
 import { 
   HomeTwoTone,
   LoginOutlined,
@@ -12,39 +14,44 @@ import {
 
 import './NavBar.scss'
 const NavBar = props => {
+  const dispatch = useDispatch();
   const history = useHistory();
-    const signOut = ()=>{
-      document.cookie =`jwtToken=; expires= ${new Date().toUTCString()}`
+  const {  isLoggedIn } = useSelector(state=>state.auth);
+    const signOutBtn = ()=>{
+      dispatch(signOut())
       history.push('/signIn')
     }
 
     return (
-        <nav class="navbar-container">
-        <ul class="navbar-nav">
-          <li class="logo">
-            <Link to="/" class="nav-link" >
-              <span class="link-text logo-text">FlyHigh</span>
+        <nav className="navbar-container">
+        <ul className="navbar-nav">
+          <li className="logo">
+            <Link to="/" className="nav-link" >
+              <span className="link-text logo-text">FlyHigh</span>
               <HomeTwoTone />
             </Link>
           </li>
-          <li class="nav-item last" id="sing-up">
-            <Link to="/signUp" class="nav-link" >
+          <li className="nav-item last" id="sing-up">
+            <Link to="/signUp" className="nav-link" >
              <DatabaseTwoTone />
-              <span class="link-text">Sign Up</span>
+              <span className="link-text">Sign Up</span>
             </Link>
           </li>
-          <li class="nav-item last" id="sing-in">
-             <Link to="/signIn" class="nav-link" >
+          <li className="nav-item last" id="sing-in">
+             <Link to="/signIn" className="nav-link" >
             <LoginOutlined />
-              <span class="link-text">Sign In</span>
+              <span className="link-text">Sign In</span>
               </Link>
           </li>
-          <li class="nav-item last" id="sing-out">
-            <div  class="nav-link" onClick={signOut} >
+          {
+            isLoggedIn &&  <li className="nav-item last" id="sing-out">
+            <div  className="nav-link" onClick={signOutBtn} >
               <LogoutOutlined />
-              <span class="link-text">Sign Out</span>
+              <span className="link-text">Sign Out</span>
             </div>
-          </li>
+          </li> 
+          }
+         
         </ul>
       </nav>
     )

@@ -10,7 +10,8 @@ const Input = ({
     onChange,
    item,
    formData,
-   formError
+   formError,
+   keyIn
 }) => {
 
     const [errors, setErrors] = useState([])
@@ -41,33 +42,34 @@ const Input = ({
         }); 
         onChange(collectFieldDetails)
     }
-    return [
-        <div className="input-item">
-            
-            <input
-                type={type}
-                id={name}
-                name={name}
-                onChange={(e) => setField(e)}
-                onBlur={e=>setField(e)}
-                placeholder={placeholder}
-                value={formData[name] || ''}
-                autocomplete="false" 
-            />
-            <label htmlFor={name}>{label} </label>
-            
-      </div>,
-      <>
-      {
-         formError!==undefined && formError!=='' && <div className="error-container">
-        <span className="error-layer">
-            <ExclamationOutlined />
-            <span className="error-msg">{formError}</span>
-        </span>
+    return (
+        <div className='element-wrapper' key={keyIn}>
+            <div className="input-item" key={keyIn}>
+                
+                <input
+                    type={type}
+                    id={name}
+                    name={name}
+                    onChange={(e) => setField(e)}
+                    onBlur={e=>setField(e)}
+                    placeholder={placeholder}
+                    value={formData[name] || ''}
+                    autoComplete="false" 
+                />
+                <label htmlFor={name}>{label} </label>
+                
         </div>
-      }
-      </>
-    ]
+        {
+            formError!==undefined && formError!=='' && 
+            <div className="error-container" key={`${keyIn}-error`}>
+                <span className="error-layer">
+                    <ExclamationOutlined />
+                    <span className="error-msg">{formError}</span>
+                </span>
+            </div>
+        }
+      </div>
+    )
 }
 
 Input.propTypes = {

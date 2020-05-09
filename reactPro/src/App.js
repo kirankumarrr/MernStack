@@ -28,14 +28,11 @@ const App = () =>{
       <div className='app-container'>
         <NavBar />
         <main>
-        <div className="main-container">
-          <Route exact path="/" 
-            render={() =>(
-              isLoggednIn ? ( <Route  component={Dashboard} />)
-            : (<Route component={Login} />)
-          )} />
-        </div>
-        <Route exact path="/signup" component={SingUp} />
+          <div className="main-container">
+            <Route exact path="/"  component={Dashboard} />
+          </div>
+          <Route exact path="/signup" component={SingUp} />
+          <Route exact path="/signin" component={Login} />
         </main>
         {/* <Footer /> */}
       </div>

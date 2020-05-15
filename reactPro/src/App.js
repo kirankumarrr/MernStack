@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {signOut, setCurrentUser } from 'store/auth/action'
 import jwt_decode from 'jwt-decode';
 import setAuthToken from 'utils/setAuthToken'
-
+import PrivateRoute from 'HOC/PrivateRoute'
 import './App.scss';
 import HomePage from 'container/HomePage/HomePage';
 import Login from 'common/Authentication/Login'
@@ -41,6 +41,7 @@ if(document.cookie.indexOf('jwtToken=')!==-1){
         <NavBar />
         <main>
           <Route exact path="/"  component={HomePage} />
+          <PrivateRoute exact path="/home"  component={HomePage} />
           <Route exact path="/signup" component={SingUp} />
           <Route exact path="/signin" component={Login} />
         </main>

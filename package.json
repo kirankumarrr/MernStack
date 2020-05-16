@@ -21,6 +21,7 @@
     "minimist": "^1.2.5",
     "mongoose": "^5.9.14",
     "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "validator": "^12.2.0"
   },

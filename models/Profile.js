@@ -10,8 +10,8 @@ const Schema = mongoose.Schema;
  * company ->string
  * website -> string
  * locatiom ->string
- * status -> [string]
- * skills -> string
+ * status -> string
+ * skills ->  [string]
  * bio ->string
  * githubusername->string
  * ------->experience------<

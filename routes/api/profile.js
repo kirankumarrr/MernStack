@@ -44,6 +44,8 @@ const User = require('../../models/User');
  * Loading route Functions 
 */
 const getProfileMethods = require('../profileRoutes/GET/getProfileMethods')
+const postProfileMethods = require('../profileRoutes/POST/postProfileMethods')
+// const deleteProfileMethods = require('../profileRoutes/DELETE/deleteProfileMethods')
 
 /**
  * TEST ROUTER
@@ -59,5 +61,12 @@ router.get('/test',(req,res)=>{res.json({msg:'Profile Works'})});
  * @access Private
 */
 router.get('/',passport.authenticate('jwt',{session:false}),getProfileMethods.currentProfile);
+
+/**
+ * @route POST  
+ * @desc Create User Profile
+ * @access Private
+*/
+router.post('/',passport.authenticate('jwt',{session:false}),postProfileMethods.createUserProfile);
 
 module.exports = router;

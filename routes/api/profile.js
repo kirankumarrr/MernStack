@@ -24,3 +24,40 @@
  * DELTE USER AND PROFILE
  * 
 */
+/**
+ * Loading Dependecy Libraries
+*/
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcryptjs');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+
+
+/**
+ * Loading Models
+*/
+const Profile = require('../../models/Profile');
+const User = require('../../models/User');
+
+/**
+ * Loading route Functions 
+*/
+const getProfileMethods = require('../profileRoutes/GET/getProfileMethods')
+
+/**
+ * TEST ROUTER
+ * @route GET  
+ * @desc Test profile route
+ * @access Public
+*/
+router.get('/test',(req,res)=>{res.json({msg:'Profile Works'})});
+
+/**
+ * @route GET  
+ * @desc GET CURRENT PROFILE route
+ * @access Private
+*/
+router.get('/',passport.authenticate('jwt',{session:false}),getProfileMethods.currentProfile);
+
+module.exports = router;

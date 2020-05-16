@@ -8,6 +8,7 @@ const passport = require('passport');
 //Note when you add bodyParser you need to add middlewares
 // API Routes
 const users =  require('./routes/api/user');
+const profile = require('./routes/api/profile')
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.get('/',(req,res)=>{
 
 // Use Routes 
 app.use('/api/users',users);
+app.use('/api/profile',profile);
 
 const port = process.env.PORT || 5000
 

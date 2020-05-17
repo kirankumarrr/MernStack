@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "store/auth/action";
 import Input from "common/Authentication/Form/Input/Input";
@@ -100,9 +102,21 @@ const SingUp = (props) => {
         return !!err;
       })) ||
     null;
-
+    const responseGoogle = (response) => {
+      console.log(response);
+      var res = response.profileObj;
+      console.log(res);
+      debugger;
+    }
   return (
     <div className="signUp-container">
+        <GoogleLogin
+        clientId="626280353795-e1oaum5mquenergt2llme8pv2r70popk.apps.googleusercontent.com"
+        buttonText="Login with Google"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle} >
+
+        </GoogleLogin>
       <form className="sing-up" autoComplete="off">
         {formObject.map((item, id) => {
           const keyIn = `${id}-form`;

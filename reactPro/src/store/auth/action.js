@@ -25,7 +25,7 @@ export const submitLogin = (user,history) => async dispatch => {
         var dt = new Date()
         var setTime = dt.setSeconds( dt.getSeconds() + 1000 );
         //dt.setSeconds( dt.getSeconds() + 10 );
-        console.log('TIME',new Date(setTime).toUTCString())
+        // console.log('TIME',new Date(setTime).toUTCString())
         document.cookie =`jwtToken=${response.data.token}; expires= ${new Date(setTime).toUTCString()}`
         localStorage.setItem('reactProIsLoggedIn',response.data.token);
       
@@ -33,7 +33,7 @@ export const submitLogin = (user,history) => async dispatch => {
         setAuthToken(response.data.token);
         // Decode token to get user
         const decode= jwt_decode(response.data.token);
-        console.log('decode',decode)
+        // console.log('decode',decode)
         dispatch(setCurrentUser(decode));
         history.push('./');
         dispatch({

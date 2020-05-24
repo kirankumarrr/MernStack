@@ -11,7 +11,7 @@ module.exports = function validateProfileInput(data) {
 
 /**
  * When reading it from request when failed to provide
- *  values for mandatory fields then we get 'null' as value
+ * values for mandatory fields then we get 'null' as value
  * but when we pass that it into Validator.isEmpty()
  * It takes strings as argument
  *  */ 

@@ -44,7 +44,8 @@ const User = require('../../models/User');
  * Loading route Functions 
 */
 const getProfileMethods = require('../profileRoutes/GET/getProfileMethods')
-const postProfileMethods = require('../profileRoutes/POST/postProfileMethods')
+const postProfileMethods = require('../profileRoutes/POST/postProfileMethods');
+const deleteProfileMethods= require('../profileRoutes/DELETE/deleteProfileMethods');
 // const deleteProfileMethods = require('../profileRoutes/DELETE/deleteProfileMethods')
 
 /**
@@ -62,11 +63,64 @@ router.get('/test',(req,res)=>{res.json({msg:'Profile Works'})});
 */
 router.get('/',passport.authenticate('jwt',{session:false}),getProfileMethods.currentProfile);
 
+
+/**
+ * @route GET api/profile/handle/:handle
+ * @desc GET PROFILE by handle
+ * @access Public
+*/
+router.get('/handle/:handle',getProfileMethods.currentHandle);
+
+/**
+ * @route GET api/profile/user/:user
+ * @desc GET PROFILE by user
+ * @access Public
+*/
+router.get('/user/:user_id',getProfileMethods.currentUser);
+
+
+/**
+ * @route GET api/profile/all
+ * @desc GET all profiles
+ * @access Public
+*/
+router.get('/all',getProfileMethods.currentProfiles);
+
+
 /**
  * @route POST  
  * @desc Create User Profile
  * @access Private
 */
 router.post('/',passport.authenticate('jwt',{session:false}),postProfileMethods.createUserProfile);
+
+/**
+ * @route POST api/profile/experience
+ * @desc  ADD experience to profile
+ * @access Private
+*/
+router.post('/experience',passport.authenticate('jwt',{session:false}),postProfileMethods.createExpericenProfile);
+
+/**
+ * @route POST api/profile/education
+ * @desc  ADD education to profile
+ * @access Private
+*/
+router.post('/education',passport.authenticate('jwt',{session:false}),postProfileMethods.createEducationProfile);
+
+
+/**
+ * @route DELETE api/profile/experience/:exp_id
+ * @desc  delete experience from profile
+ * @access Private
+*/
+router.delete('/experience/:exp_id',passport.authenticate('jwt',{session:false}),deleteProfileMethods.deleteExperienceProfile);
+
+/**
+ * @route DELETE api/profile/education/:edu_id
+ * @desc  delete education from profile
+ * @access Private
+*/
+router.delete('/education/:edu_id',passport.authenticate('jwt',{session:false}),deleteProfileMethods.deleteEducationProfile);
 
 module.exports = router;

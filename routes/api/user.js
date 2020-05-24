@@ -91,15 +91,12 @@ router.post('/login',(req,res)=>{
                 errors.email = 'User not Found!!!';
                 return res.status(404).json(errors);
             }
-            console.log("Req password",password)
-            console.log("User Response From MDB",user)
             bcrypt.compare(password,user.password)
                 .then(isMatch=>{
                     if(isMatch){
                         const {id,name,avatar} = user;
                         //Create JWT Palyload
                         const payload ={id,name,avatar};
-                        console.log("PAYLOAD",payload)
                         //SignIn Token
                         //expiresIn : Seconds
                         jwt.sign(payload, keys.secretKey, {expiresIn:3600}, (err,token)=>{

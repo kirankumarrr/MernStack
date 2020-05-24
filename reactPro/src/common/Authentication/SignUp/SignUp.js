@@ -103,10 +103,7 @@ const SingUp = (props) => {
       })) ||
     null;
     const responseGoogle = (response) => {
-      console.log(response);
       var res = response.profileObj;
-      console.log(res);
-      debugger;
     }
   return (
     <div className="signUp-container">

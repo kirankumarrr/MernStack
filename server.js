@@ -8,6 +8,8 @@ const passport = require('passport');
 //Note when you add bodyParser you need to add middlewares
 // API Routes
 const users =  require('./routes/api/user');
+const profile = require('./routes/api/profile')
+const posts =  require('./routes/api/post')
 
 const app = express();
 
@@ -29,7 +31,7 @@ require('./config/passport')(passport);
  *  DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. 
  *  To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
 */
-mongoose.connect(db,{ useUnifiedTopology:true , useNewUrlParser: true, })
+mongoose.connect(db,{ useUnifiedTopology:true , useNewUrlParser: true,useFindAndModify: false })
         .then(()=>{
             console.log("MongoDB connected");
         })
@@ -43,6 +45,8 @@ app.get('/',(req,res)=>{
 
 // Use Routes 
 app.use('/api/users',users);
+app.use('/api/profile',profile);
+app.use('/api/posts',posts);
 
 const port = process.env.PORT || 5000
 

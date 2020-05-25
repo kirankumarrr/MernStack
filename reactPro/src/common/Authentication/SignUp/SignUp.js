@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 import { useDispatch, useSelector } from "react-redux";
-import { submitLogin } from "store/auth/action";
+import { signUp } from "store/auth/action";
 import Input from "common/Authentication/Form/Input/Input";
-import "./Login.scss";
-const Login = (props) => {
+import "./SignUp.scss";
+
+const SingUp = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -13,7 +16,7 @@ const Login = (props) => {
   const [formErrors, setFormErrors] = useState({});
 
   const handleSubmit = () => {
-    dispatch(submitLogin(formData, history));
+    dispatch(signUp(formData, history));
   };
 
   const { errors } = useSelector((state) => state.auth);
@@ -25,7 +28,20 @@ const Login = (props) => {
 
   let formObject = [
     {
-      id: 1,
+      type: "text",
+      name: "name",
+      placeholder: "Enter name",
+      label: "Name",
+      regex: "",
+      validations: [
+        {
+          task: "required",
+          errorMessage: "Name field is required",
+        },
+      ],
+      errors: [],
+    },
+    {
       type: "text",
       name: "email",
       placeholder: "Enter Email",
@@ -44,7 +60,6 @@ const Login = (props) => {
       errors: [],
     },
     {
-      id: 2,
       type: "password",
       name: "password",
       placeholder: "Enter password",
@@ -58,7 +73,21 @@ const Login = (props) => {
       ],
       errors: [],
     },
+    {
+      type: "password",
+      name: "password2",
+      placeholder: "Enter Confirm password",
+      label: "Confirm Password",
+      regex: "",
+      validations: [
+        {
+          task: "required",
+          errorMessage: "Confirm Password field is required",
+        },
+      ],
+    },
   ];
+
   const onChange = ({ value, field, errorMessage }) => {
     const existingForm = Object.assign({}, formData);
     const existingErrors = Object.assign({}, formErrors);
@@ -67,22 +96,30 @@ const Login = (props) => {
     setFormErrors(existingErrors);
     setFormData(existingForm);
   };
-
   const isFormValid =
     (Object.values(formErrors).length > 0 &&
       Object.values(formErrors).filter((err) => {
         return !!err;
       })) ||
     null;
-
+    const responseGoogle = (response) => {
+      var res = response.profileObj;
+    }
   return (
     <div className="signUp-container">
+        <GoogleLogin
+        clientId="626280353795-e1oaum5mquenergt2llme8pv2r70popk.apps.googleusercontent.com"
+        buttonText="Login with Google"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle} >
+
+        </GoogleLogin>
       <form className="sing-up" autoComplete="off">
         {formObject.map((item, id) => {
-          const keyIn = `${id}-login`;
+          const keyIn = `${id}-form`;
           return (
             <Input
-              keyIn={keyIn}
+              key={keyIn}
               onChange={onChange}
               item={item}
               formData={formData}
@@ -100,7 +137,7 @@ const Login = (props) => {
               : null
           }
         >
-          Sign In
+          Sign Up
           <span></span>
           <span></span>
           <span></span>
@@ -111,6 +148,6 @@ const Login = (props) => {
   );
 };
 
-Login.propTypes = {};
+SingUp.propTypes = {};
 
-export default Login;
+export default SingUp;

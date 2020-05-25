@@ -1,38 +1,50 @@
 import React from 'react';
-
+import { getCookieValue } from 'utils/cookies'
 import { useSelector } from 'react-redux';
 import { Route, Switch } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import {signOut, setCurrentUser } from 'store/auth/action'
+import jwt_decode from 'jwt-decode';
+import setAuthToken from 'utils/setAuthToken'
+import PrivateRoute from 'HOC/PrivateRoute'
 import './App.scss';
-import Dashboard from 'container/Dashboard/Dashboard';
-import Header from "common/Header/Header"
+import HomePage from 'container/HomePage/HomePage';
 import Login from 'common/Authentication/Login'
-
+import SingUp from 'common/Authentication/SignUp/SignUp';
+import NavBar from 'common/NavBar/NavBar';
 const App = () =>{
+  const dispatch = useDispatch();
+//TODO : check for Cookies 
 
-  let isLoggednIn;
-  const {accessToken} =useSelector(state=>state.auth) 
+if(document.cookie.indexOf('jwtToken=')!==-1){
+  // if cookies exist set them to axios token
+  setAuthToken(getCookieValue('jwtToken'));
+  // decode token
+  const decoded = jwt_decode(getCookieValue('jwtToken'))
+  // dispatch action using decoded token
+  dispatch(setCurrentUser(decoded));
+    // Check for expired token
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+      // Logout user
+      dispatch(signOut());
+      // Redirect to login
+      window.location.href = '/singin';
+    }
+}
 
-  //jwtToken
-  var ab = document.cookie.split(';').filter(ele=>ele.startsWith('jwtToken'));
-  if(ab.length>0){
-    isLoggednIn =  true  
-  }else{
-    isLoggednIn = false
-  }
-  console.log("accessToken",accessToken);
+
   return (
     
       <div className='app-container'>
-        <Header />
-        <div className="main-container">
-          <Route exact path="/" 
-            render={() =>(
-              isLoggednIn ? ( <Route  component={Dashboard} />)
-            : (<Route component={Login} />)
-          )} />
-        </div>
+        <NavBar />
+        <main>
+          <Route exact path="/"  component={HomePage} />
+          <PrivateRoute exact path="/home"  component={HomePage} />
+          <Route exact path="/signup" component={SingUp} />
+          <Route exact path="/signin" component={Login} />
+        </main>
         {/* <Footer /> */}
       </div>
    

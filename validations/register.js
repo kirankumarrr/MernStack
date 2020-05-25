@@ -5,10 +5,10 @@ const checkIsEmpty =  require('./is-empty');
 module.exports = function validateRegisterInput(data){
     let errors = {};
 
-    data.name = !checkIsEmpty(data.email) ? data.email : '';
+    data.name = !checkIsEmpty(data.name) ? data.name : '';
     data.email = !checkIsEmpty(data.email) ? data.email : '';
-    data.password = !checkIsEmpty(data.email) ? data.email : '';
-    data.password2 = !checkIsEmpty(data.password) ? data.password : '';
+    data.password = !checkIsEmpty(data.password) ? data.password : '';
+    data.password2 = !checkIsEmpty(data.password2) ? data.password2 : '';
 
 
     /**
@@ -35,11 +35,12 @@ module.exports = function validateRegisterInput(data){
      * Field Validations Lengths START
     */
     // Set Name length 
+   
     if(!Validator.isLength(data.name, {min:2,max:30})){
         errors.name = 'Name must be between 2 to 30 characters';
     }
     if(!Validator.isLength(data.password, {min:6,max:30})){
-        errors.password = 'Passwors must be atleast 6 characters';
+        errors.password = 'Password must be atleast 6 characters';
    }
     
     /**
@@ -53,13 +54,13 @@ module.exports = function validateRegisterInput(data){
         errors.email = 'Email is invalid';
     }
     // Check password2 to be same as password
-     if(!Validator.equals(data.password,data.password2)){
-        errors.email = 'Password must match';
+     if(data.password !== data.password2){
+        errors.password2 = 'Password must match';
     }
     /**
      * Field Pattern Check END
     */
-
+    
     return {
         errors,
         isValid : checkIsEmpty(errors)

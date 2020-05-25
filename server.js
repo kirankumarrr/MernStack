@@ -9,6 +9,7 @@ const passport = require('passport');
 // API Routes
 const users =  require('./routes/api/user');
 const profile = require('./routes/api/profile')
+const posts =  require('./routes/api/post')
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.get('/',(req,res)=>{
 // Use Routes 
 app.use('/api/users',users);
 app.use('/api/profile',profile);
+app.use('/api/posts',posts);
 
 const port = process.env.PORT || 5000
 

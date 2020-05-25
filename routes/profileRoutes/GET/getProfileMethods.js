@@ -58,7 +58,6 @@ exports.currentUser = function(req,res){
 
 exports.currentProfiles = function(req,res){
     //Note here we are reading unique id from params
-    debugger;
     let errors={}
     Profile.find()
             .populate('user', ['name', 'avatar'])

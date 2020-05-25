@@ -30,7 +30,7 @@ require('./config/passport')(passport);
  *  DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. 
  *  To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
 */
-mongoose.connect(db,{ useUnifiedTopology:true , useNewUrlParser: true, })
+mongoose.connect(db,{ useUnifiedTopology:true , useNewUrlParser: true,useFindAndModify: false })
         .then(()=>{
             console.log("MongoDB connected");
         })

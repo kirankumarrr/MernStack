@@ -123,4 +123,12 @@ router.delete('/experience/:exp_id',passport.authenticate('jwt',{session:false})
 */
 router.delete('/education/:edu_id',passport.authenticate('jwt',{session:false}),deleteProfileMethods.deleteEducationProfile);
 
+/**
+ * @route DELETE api/profile
+ * @desc  delete user and profile
+ * @access Private
+*/
+router.delete('/',passport.authenticate('jwt',{session:false}),deleteProfileMethods.deleteUserAndProfile);
+
+
 module.exports = router;

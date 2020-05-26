@@ -35,7 +35,7 @@ export const submitLogin = (user,history) => async dispatch => {
         const decode= jwt_decode(response.data.token);
         // console.log('decode',decode)
         dispatch(setCurrentUser(decode));
-        history.push('./');
+        history.push('./dashboard');
         dispatch({
             type: LOGIN,
             payload:response.data

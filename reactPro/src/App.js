@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {signOut, setCurrentUser } from 'store/auth/action'
+import {clearCurrentProfile } from 'store/profile/profile.action';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from 'utils/setAuthToken'
 import PrivateRoute from 'HOC/PrivateRoute'
@@ -13,6 +14,7 @@ import HomePage from 'container/HomePage/HomePage';
 import Login from 'common/Authentication/Login'
 import SingUp from 'common/Authentication/SignUp/SignUp';
 import NavBar from 'common/NavBar/NavBar';
+import DashBoard from 'container/DashBoard/DashBoard'
 const App = () =>{
   const dispatch = useDispatch();
 //TODO : check for Cookies 
@@ -29,6 +31,8 @@ if(document.cookie.indexOf('jwtToken=')!==-1){
     if (decoded.exp < currentTime) {
       // Logout user
       dispatch(signOut());
+      //Clear Profile
+      dispatch(clearCurrentProfile());
       // Redirect to login
       window.location.href = '/singin';
     }
@@ -41,7 +45,7 @@ if(document.cookie.indexOf('jwtToken=')!==-1){
         <NavBar />
         <main>
           <Route exact path="/"  component={HomePage} />
-          <PrivateRoute exact path="/home"  component={HomePage} />
+          <PrivateRoute exact path="/dashboard"  component={DashBoard} />
           <Route exact path="/signup" component={SingUp} />
           <Route exact path="/signin" component={Login} />
         </main>

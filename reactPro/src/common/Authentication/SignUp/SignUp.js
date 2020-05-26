@@ -107,13 +107,13 @@ const SingUp = (props) => {
     }
   return (
     <div className="signUp-container">
-        <GoogleLogin
+        {/* <GoogleLogin
         clientId="626280353795-e1oaum5mquenergt2llme8pv2r70popk.apps.googleusercontent.com"
         buttonText="Login with Google"
         onSuccess={responseGoogle}
-        onFailure={responseGoogle} >
+        onFailure={responseGoogle} > */}
 
-        </GoogleLogin>
+        {/* </GoogleLogin> */}
       <form className="sing-up" autoComplete="off">
         {formObject.map((item, id) => {
           const keyIn = `${id}-form`;

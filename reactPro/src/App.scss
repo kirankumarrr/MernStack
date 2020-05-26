@@ -3,7 +3,11 @@
 
 
 .app-container{
+  position: relative;
   .main-container{
     margin-top: 72px;
+  }
+  main{
+    padding-top: 56px;
   }
 }

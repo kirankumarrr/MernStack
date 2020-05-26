@@ -1,64 +1,69 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {Link } from "react-router-dom";
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import {signOut, setCurrentUser } from 'store/auth/action'
-import { useSelector, useDispatch } from 'react-redux';
-import { 
+import { signOut, setCurrentUser } from "store/auth/action";
+import { useSelector, useDispatch } from "react-redux";
+import {
   HomeTwoTone,
   LoginOutlined,
   LogoutOutlined,
-  DatabaseTwoTone
+  IdcardOutlined,
+  UsergroupDeleteOutlined
+} from "@ant-design/icons";
 
-}  from '@ant-design/icons';
+import "./NavBar.scss";
 
-import './NavBar.scss'
-const NavBar = props => {
+
+const NavBar = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {  isLoggedIn } = useSelector(state=>state.auth);
-    const signOutBtn = ()=>{
-      dispatch(signOut())
-      history.push('/signIn')
-    }
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const signOutBtn = () => {
+    dispatch(signOut());
+    history.push("/signIn");
+  };
 
-    return (
-        <nav className="navbar-container">
-        <ul className="navbar-nav">
-          <li className="logo">
-            <Link to="/" className="nav-link" >
-              <span className="link-text logo-text">FlyHigh</span>
-              <HomeTwoTone />
-            </Link>
-          </li>
-          <li className="nav-item last" id="sing-up">
-            <Link to="/signUp" className="nav-link" >
-             <DatabaseTwoTone />
-              <span className="link-text">Sign Up</span>
-            </Link>
-          </li>
-          <li className="nav-item last" id="sing-in">
-             <Link to="/signIn" className="nav-link" >
-            <LoginOutlined />
-              <span className="link-text">Sign In</span>
-              </Link>
-          </li>
-          {
-            isLoggedIn &&  <li className="nav-item last" id="sing-out">
-            <div  className="nav-link" onClick={signOutBtn} >
+  return (
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <Link to="/" className="navbar-brand">
+        <span className="link-text logo-text">FlyHigh</span>
+        {/* <HomeTwoTone /> */}
+      </Link>
+      <ul className="nav">
+        <li className="nav-item">
+          <Link to="/signUp" className="nav-link">
+          <UsergroupDeleteOutlined />
+            <span className="link-text">Developers</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/signUp" className="nav-link">
+          <IdcardOutlined />
+            <span className="link-text">Sign Up</span>
+          </Link>
+        </li>
+        
+        {isLoggedIn ? (
+          <li className="nav-item">
+            <div className="nav-link" onClick={signOutBtn}>
               <LogoutOutlined />
               <span className="link-text">Sign Out</span>
             </div>
-          </li> 
-          }
-         
-        </ul>
-      </nav>
-    )
-}
+          </li>
+        ): (
+        <li className="nav-item">
+          <Link to="/signIn" className="nav-link">
+            <LoginOutlined />
+            <span className="link-text">Sign In</span>
+          </Link>
+        </li>
+        )}
+      </ul>
+    </nav>
+  );
+};
 
-NavBar.propTypes = {
+NavBar.propTypes = {};
 
-}
-
-export default NavBar
+export default NavBar;

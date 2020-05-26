@@ -82,7 +82,7 @@ const Login = (props) => {
           const keyIn = `${id}-login`;
           return (
             <Input
-              keyIn={keyIn}
+              key={keyIn}
               onChange={onChange}
               item={item}
               formData={formData}

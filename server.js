@@ -14,7 +14,7 @@ const posts =  require('./routes/api/post')
 const app = express();
 
 //DB config
-const db =  require('./config/keys').mongoURI;
+const dbPath =  require('./config/keys').mongoURI;
 
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({extended:false}));
@@ -30,12 +30,20 @@ require('./config/passport')(passport);
 /**
  *  DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. 
  *  To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
+
+ mongoURI : 'mongodb://kirankumarrr:yg88vw@ds259144.mlab.com:59144/nodereactdevconnector', 
+ mongodb+srv://kirankumarrr:yg88vw@cluster0-re3gq.mongodb.net/test?retryWrites=true
 */
-mongoose.connect(db,{ useUnifiedTopology:true , useNewUrlParser: true,useFindAndModify: false })
-        .then(()=>{
-            console.log("MongoDB connected");
-        })
-        .catch(err=>console.log("Mongo DB failed :::",err));
+
+
+mongoose.connect(dbPath, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then((res)=>{
+    console.log("Connected to MongoDB")
+}).catch(err=>{
+    console.error(err)
+})
 
 
 app.get('/',(req,res)=>{

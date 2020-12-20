@@ -54,7 +54,7 @@ router.post('/register',(req,res)=>{
                     avatar,
                     password
                 });
-                // why genSalt for ?
+                // why genSalt for: set password encryption length to 10
                 bcrypt.genSalt(10,(err,salt)=>{
                     // Hashing the password using bcrypt
                     bcrypt.hash(newUser.password,salt,(err,hash)=>{
@@ -81,12 +81,15 @@ router.post('/register',(req,res)=>{
 // @access Public 
 router.post('/login',(req,res)=>{
     const {errors, isValid} = validateLoginInput(req.body);
-
+    
+    console.log("errors",errors)
     if(!isValid){
         return res.status(400).json(errors);
     }
     const {email,password} = req.body;
+    
     User.findOne({email}).then(user=>{
+        console.log("user",user)
             if(!user){
                 errors.email = 'User not Found!!!';
                 return res.status(404).json(errors);
@@ -95,7 +98,7 @@ router.post('/login',(req,res)=>{
                 .then(isMatch=>{
                     if(isMatch){
                         const {id,name,avatar} = user;
-                        //Create JWT Palyload
+                        //Create JWT Payload : This payload which is user data set in client storage, which can be access using token
                         const payload ={id,name,avatar};
                         //SignIn Token
                         //expiresIn : Seconds
@@ -110,7 +113,9 @@ router.post('/login',(req,res)=>{
                         return res.status(400).json(errors);
                     }
                 })
-        }).catch(err=>console.log("User Login Error",err));
+        }).catch(err=>{
+            console.log("User Login Error",err)
+        });
     // res.json({msg:"User Works"}) // note: If you pass 2 responses it will take initial One
 });
 

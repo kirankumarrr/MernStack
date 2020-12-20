@@ -5,7 +5,7 @@ import './Button.scss'
 
 const Button = props => {
     return (
-        <Link to={props.path} className={`btn ${props.className}`}>
+        <Link to={props.path} className={`bt-btn ${props.className}`}>
            
             {props.text}
           

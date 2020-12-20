@@ -15,6 +15,7 @@ import Login from 'common/Authentication/Login'
 import SingUp from 'common/Authentication/SignUp/SignUp';
 import NavBar from 'common/NavBar/NavBar';
 import DashBoard from 'container/DashBoard/DashBoard'
+import AuthenticationPage from 'container/AuthenticationPage/AuthenticationPage'
 const App = () =>{
   const dispatch = useDispatch();
 //TODO : check for Cookies 
@@ -44,10 +45,11 @@ if(document.cookie.indexOf('jwtToken=')!==-1){
       <div className='app-container'>
         <NavBar />
         <main>
-          <Route exact path="/"  component={HomePage} />
-          <PrivateRoute exact path="/dashboard"  component={DashBoard} />
+          {/* <Route exact path="/"  component={HomePage} /> */}
+          {/* <PrivateRoute exact path="/dashboard"  component={DashBoard} />
           <Route exact path="/signup" component={SingUp} />
-          <Route exact path="/signin" component={Login} />
+          <Route exact path="/signin" component={Login} /> */}
+          <Route exact path="/" component={AuthenticationPage} />
         </main>
         {/* <Footer /> */}
       </div>

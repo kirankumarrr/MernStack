@@ -25,12 +25,22 @@ class AuthenticationPage extends Component {
   }
 
   handleLoginSubmit=(e)=>{
-    debugger
     e.preventDefault()
     const { submitLogin,history } = this.props;
     const { loginFormValues } =this.state;
     submitLogin(loginFormValues,history)
   }
+
+  handleSingUpSubmit=(e)=>{
+    e.preventDefault()
+    const { signUp,history } = this.props;
+    const { loginFormValues } =this.state;
+    signUp(loginFormValues,history)
+    this.setState({
+      isSignUpMode:true
+    })
+  }
+
   render() {
     const { isSignUpMode,loginFormValues }= this.state;
     return (
@@ -45,6 +55,7 @@ class AuthenticationPage extends Component {
                 field={'email'}                           inputSetClassName="input-field-element"
                 onChange={this.handleOnchange}
                 type={'text'}
+                iconName={'email'}
                 value={('email' in loginFormValues && loginFormValues['email']) || ''}
               />
               <Input placeholder="Password"  
@@ -53,6 +64,7 @@ class AuthenticationPage extends Component {
                 field={'password'}                           inputSetClassName="input-field-element"
                 onChange={this.handleOnchange}
                 type={'password'}
+                iconName={'password'}
                 value={('password' in loginFormValues && loginFormValues['password']) || ''}
               />
               <input type='submit' 
@@ -72,12 +84,44 @@ class AuthenticationPage extends Component {
             </form>
             <form action='' className="signing-form sign-up-form">
               <h2 className="signin-title">Sing Up</h2>
-              <div className="input-field">
-                <UsergroupDeleteOutlined className="input-field-icon" />
-                <input type='text' placeholder="Username" className="input-field-element" />
-              </div>
+              <Input placeholder="Name"  
+                setIconClassName={'input-field-icon'}
+                isIconRequired
+                field={'name'}                           inputSetClassName="input-field-element"
+                onChange={this.handleOnchange}
+                type={'text'}
+                value={('name' in loginFormValues && loginFormValues['name']) || ''}
+              />
+              <Input placeholder="Email"  
+                setIconClassName={'input-field-icon'}
+                isIconRequired
+                field={'email'}                           inputSetClassName="input-field-element"
+                onChange={this.handleOnchange}
+                type={'text'}
+                iconName={'email'}
+                value={('email' in loginFormValues && loginFormValues['email']) || ''}
+              />
+              <Input placeholder="Password"  
+                setIconClassName={'input-field-icon'}
+                isIconRequired
+                field={'password'}                           inputSetClassName="input-field-element"
+                onChange={this.handleOnchange}
+                type={'password'}
+                iconName={'password'}
+                value={('password' in loginFormValues && loginFormValues['password']) || ''}
+              />
+              <Input placeholder="Confirm Password"  
+                setIconClassName={'input-field-icon'}
+                isIconRequired
+                field={'password2'}                           inputSetClassName="input-field-element"
+                onChange={this.handleOnchange}
+                type={'password'}
+                iconName={'password'}
+                value={('password2' in loginFormValues && loginFormValues['password2']) || ''}
+              />
               <input type='submit' value='Login' 
-                  className="input-field-btn solid" 
+                  className="input-field-btn solid"
+                  onClick={this.handleSingUpSubmit} 
                  
               />
               <p className="social-text">
@@ -102,7 +146,8 @@ class AuthenticationPage extends Component {
               <button className="btn transparent" 
                onClick={()=>{
                 this.setState({
-                  isSignUpMode:true
+                  isSignUpMode:true,
+                  loginFormValues:{}
                 })
               }}
               id="sign-up-btn">Sign Up</button>
@@ -117,7 +162,8 @@ class AuthenticationPage extends Component {
               <button className="btn transparent" 
                onClick={()=>{
                 this.setState({
-                  isSignUpMode: false
+                  isSignUpMode: false,
+                  loginFormValues:{}
                 })
               }}
               id="sign-in-btn">Sign In</button>

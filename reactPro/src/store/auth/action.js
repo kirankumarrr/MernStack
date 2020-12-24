@@ -60,7 +60,7 @@ export const setCurrentUser = (decoded) => async dispatch => {
 export const signUp = (data,history) => async dispatch => {
      await axios.post(`api/users/register`, data)
         .then(response =>{
-            history.push('./signin');
+            // history.push('./signin');
             dispatch({
                 type: GET_FORM_ERRORS,
                 payload: {}

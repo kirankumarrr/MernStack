@@ -3,7 +3,7 @@
 */
 
 module.exports={
-    mongoURI : 'mongodb://kirankumarrr:yg88vw@ds259144.mlab.com:59144/nodereactdevconnector',
+    mongoURI : 'mongodb+srv://kirankumarrr:yg88vw@merncluster.32zbo.mongodb.net/developers?retryWrites=true&w=majority',
     secretKey: 'secret',
     google:{
         clientID :'626280353795-e1oaum5mquenergt2llme8pv2r70popk.apps.googleusercontent.com',

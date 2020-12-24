@@ -2,8 +2,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-//Using Passport we can make routes Private : Authetication Module
-//This also has middlewares
+
+// Passport:::
+// make verification
+// Using Passport we can make routes Private : Authetication Module
+// This also has middlewares
 const passport = require('passport');
 //Note when you add bodyParser you need to add middlewares
 // API Routes

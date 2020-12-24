@@ -1,14 +1,16 @@
 import React from 'react'
 import {
   UsergroupDeleteOutlined,
-  FacebookOutlined
+  UnlockOutlined,
+  MailOutlined
 } from "@ant-design/icons";
 
 const InputIcon = ({ iconName, setIconClassName }) => {
   switch (iconName) {
-    case 'UsergroupDeleteOutlined':
-      return <UsergroupDeleteOutlined className={setIconClassName} />
-
+    case 'email':
+      return <MailOutlined className={setIconClassName} />
+    case 'password':
+        return <UnlockOutlined className={setIconClassName} />
     default:
       return <UsergroupDeleteOutlined className={setIconClassName} />
   }

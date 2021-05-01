@@ -1,24 +1,59 @@
 @import 'src/css/_variables';
 
 //#2c3a45
-.navbar{
+.navbar {
   justify-content: space-between;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 100;
-  .nav-item{
-        .nav-link{
-          color:$White;
-          .anticon{
-            padding-right: 10px;
-              svg {
-                vertical-align: inherit;
-                path{
-                  fill:$White;
-                }
-            } 
+  .nav-item {
+    .nav-link {
+      color: $White;
+      .anticon {
+        padding-right: 10px;
+        svg {
+          vertical-align: inherit;
+          path {
+            fill: $White;
           }
         }
+      }
     }
+  }
+  .navbar-hamberge {
+    display: none;
+    path {
+      fill: $White;
+    }
+  }
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+  .navbar {
+    display: grid;
+    grid-template-areas:
+      'brand brand hamberge'
+      'nav nav nav';
+    .navbar-hamberge {
+      display: inline-block;
+    }
+    .navbar-brand {
+      grid-area: brand;
+    }
+    .navbar-hamberge {
+      grid-area: hamberge;
+    }
+    .nav {
+      display: none;
+      &.mb {
+        grid-area: nav;
+        display: flex;
+        justify-items: center;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  }
 }

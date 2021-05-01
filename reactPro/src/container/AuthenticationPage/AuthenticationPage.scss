@@ -1,40 +1,40 @@
-@import "src/css/_variables";
-.authentication-container{
-   position: relative;
-   width: 100%;
-   min-height: 90vh;
-   overflow: hidden;
-   &::before{
-    content:'';
+@import 'src/css/_variables';
+.authentication-container {
+  position: relative;
+  width: 100%;
+  min-height: 90vh;
+  overflow: hidden;
+  &::before {
+    content: '';
     position: absolute;
     width: 2000px;
-    height:  2000px;
+    height: 2000px;
     border-radius: 50%;
-    background: linear-gradient(-45deg, #4481eb,#04befe);
-    top:-5%;
+    background: linear-gradient(-45deg, #4481eb, #04befe);
+    top: -5%;
     right: 48%;
     transform: translateY(-50%);
     z-index: 6;
     transition: 1.8s ease-in-out;
   }
-  .forms-container{
+  .forms-container {
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    .signin-signup{
+    .signin-signup {
       position: absolute;
       top: 40%;
       left: 75%;
-      transform: translate(-50%,-50% );
+      transform: translate(-50%, -50%);
       width: 50%;
       display: grid;
-      grid-template-columns:1fr;
+      grid-template-columns: 1fr;
       z-index: 5;
       transition: 1s 0.7s ease-in-out;
     }
-    .signing-form{
+    .signing-form {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -44,49 +44,49 @@
       padding: 0 5rem;
       overflow: hidden;
       transition: 0.2s 0.7s ease-in-out;
-      &.sign-in-form{
+      &.sign-in-form {
         z-index: 2;
       }
-      &.sign-up-form{
+      &.sign-up-form {
         z-index: 1;
         opacity: 0;
       }
-      .signin-title{
+      .signin-title {
         font-size: 2.2rem;
-        color:$LightGray;
+        color: $LightGray;
         margin-bottom: 10px;
       }
-      .input-field{
+      .input-field {
         max-width: 380px;
         width: 100%;
         height: 55px;
-        background-color:$LightWhite;
+        background-color: $LightWhite;
         margin: 10px 0;
         border-radius: 55px;
         display: grid;
         grid-template-columns: 15% 85%;
-        padding: 0 .4rem;
-        .input-field-icon{
+        padding: 0 0.4rem;
+        .input-field-icon {
           color: $LightGray2;
           line-height: 50px;
           font-size: 1.1rem;
           text-align: center;
         }
-        .input-field-element{
-          background-color:$LightWhite;
+        .input-field-element {
+          background-color: $LightWhite;
           border-radius: 55px;
           outline: none;
           border: none;
           line-height: 1;
           font-weight: 600;
           color: $Black;
-          &::placeholder{
+          &::placeholder {
             color: #aaa;
             font-weight: 500;
           }
         }
       }
-      .input-field-btn{
+      .input-field-btn {
         width: 150px;
         height: 49px;
         border: none;
@@ -95,20 +95,20 @@
         cursor: pointer;
         background-color: #5995fd;
         font-weight: 600;
-        transition: .5s;
-        &:hover{
-          background-color: #4dB4e2;
+        transition: 0.5s;
+        &:hover {
+          background-color: #4db4e2;
         }
       }
-      .social-text{
+      .social-text {
         padding: 1rem 0;
         font-size: 1rem;
       }
-      .social-media{
+      .social-media {
         display: flex;
         justify-content: center;
       }
-      .social-icon{
+      .social-icon {
         height: 46px;
         width: 46px;
         display: flex;
@@ -119,13 +119,13 @@
         color: $Black;
         font-size: 1.1rem;
         border-radius: 50%;
-        transition: .3s;
+        transition: 0.3s;
         text-decoration: none;
-        &:hover{
-          span{
-            svg{
-              path{
-                fill: #4dB4e2;
+        &:hover {
+          span {
+            svg {
+              path {
+                fill: #4db4e2;
               }
             }
           }
@@ -133,63 +133,62 @@
       }
     }
   }
-} 
-
+}
 
 // Panels css
-.authentication-container{
-  .panels-container{
+.authentication-container {
+  .panels-container {
     position: absolute;
     width: 100%;
     height: 100%;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-    .panel{
+    grid-template-columns: repeat(2, 1fr);
+    .panel {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       text-align: center;
       z-index: 7;
-      .content{
-        transition: .9s .6s ease-in-out;
+      .content {
+        transition: 0.9s 0.6s ease-in-out;
         color: #fff;
-          h3{
-            font-weight: 500;
-            line-height: 1;
-            font-size: 1.5rem;
+        h3 {
+          font-weight: 500;
+          line-height: 1;
+          font-size: 1.5rem;
+        }
+        .panel-text {
+          font-size: 0.95rem;
+          padding: 0.7rem 0;
+        }
+        .btn {
+          width: 150px;
+          height: 49px;
+          border: none;
+          outline: none;
+          border-radius: 49px;
+          cursor: pointer;
+          background-color: #5995fd;
+          font-weight: 600;
+          font-size: 0.8rem;
+          transition: 0.5s;
+          margin: 0;
+          border: 2px solid #fff;
+          &:hover {
+            background-color: #4db4e2;
           }
-          .panel-text{
-            font-size: 0.95rem;
-            padding: 0.7rem 0;
-          }
-          .btn{
-            width: 150px;
-            height: 49px;
-            border: none;
-            outline: none;
-            border-radius: 49px;
-            cursor: pointer;
-            background-color: #5995fd;
-            font-weight: 600;
-            font-size: 0.8rem;
-            transition: .5s;
-            margin: 0;
-            border: 2px solid #fff;
-            &:hover{
-              background-color: #4dB4e2;
-            }
         }
       }
-      &.left-panel{
+      &.left-panel {
         pointer-events: all;
         padding: 15rem 17% 2rem 12%;
       }
-      &.right-panel{
+      &.right-panel {
         pointer-events: none;
         padding: 15rem 12% 2rem 17%;
-        .content{
+        .content {
           transform: translateX(800px);
         }
       }
@@ -199,35 +198,34 @@
 
 // Animation
 
-.authentication-container{
-  &.sign-up-mode{
-    .signin-signup{
+.authentication-container {
+  &.sign-up-mode {
+    .signin-signup {
       left: 25%;
-      .sign-in-form{
+      .sign-in-form {
         opacity: 0;
         z-index: 1;
       }
-      .sign-up-form{
+      .sign-up-form {
         z-index: 2;
         opacity: 1;
       }
     }
-    &::before{
-      transform: translate(100%,-50%);
+    &::before {
+      transform: translate(100%, -50%);
       right: 52%;
     }
-    .panels-container{
-      .panel{
-        &.left-panel{
+    .panels-container {
+      .panel {
+        &.left-panel {
           pointer-events: none;
-          .content{
+          .content {
             transform: translateX(-1000px);
           }
-          
         }
-        &.right-panel{
+        &.right-panel {
           pointer-events: all;
-          .content{
+          .content {
             transform: translateX(0);
           }
         }
@@ -236,86 +234,84 @@
   }
 }
 
-
-
-@media (max-width:870px){
-  .authentication-container{
+@media (max-width: 870px) {
+  .authentication-container {
     min-height: 800px;
     height: 100vh;
-    &.sign-up-mode{
-      .forms-container{
-        .signin-signup{
-          top:5%;
-          transform:translate(-50%, 0%);
+    &.sign-up-mode {
+      .forms-container {
+        .signin-signup {
+          top: 5%;
+          transform: translate(-50%, 0%);
           left: 50%;
         }
       }
-      &::before{
+      &::before {
         bottom: 32%;
-        transform: translate(-50%,100%);
+        transform: translate(-50%, 100%);
         right: initial;
       }
-      .panels-container{
-        .panel{
-          &.left-panel{
-            .content{
+      .panels-container {
+        .panel {
+          &.left-panel {
+            .content {
               transform: translateY(-300px);
             }
           }
         }
       }
     }
-    &::before{
+    &::before {
       width: 1500px;
-      height:  1500px;
+      height: 1500px;
       left: 30%;
       bottom: 60%;
       transform: translateX(-50%);
       right: initial;
-      top:initial;
+      top: initial;
       transition: 2s ease-in-out;
     }
-    .forms-container{
-      .signin-signup{
+    .forms-container {
+      .signin-signup {
         width: 100%;
         left: 50%;
-        top:70%;
-        transform:translate(-50%,-100%);
+        top: 70%;
+        transform: translate(-50%, -100%);
         transition: 1s 0.8s ease-in-out;
       }
     }
-    .panels-container{
+    .panels-container {
       z-index: 10;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 2fr 1fr;
-      .panel{
+      .panel {
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
-        .content{
+        .content {
           transition: 0.9s 0.8s ease-in-out;
           padding-right: 15px;
         }
-        h3{
+        h3 {
           font-size: 1.2rem;
         }
-        p{
+        p {
           font-size: 0.7rem;
           padding: 0.5rem 0;
         }
-        .btn{
+        .btn {
           width: 110px;
           height: 49px;
           font-size: 0.7rem;
         }
-        &.left-panel{
+        &.left-panel {
           padding: 2.5rem 8%;
           grid-row: 1 / 2;
         }
-        &.right-panel{
+        &.right-panel {
           padding: 3rem 12% 2rem 17%;
-          grid-row: 3  / 4;
-          .content{
+          grid-row: 3 / 4;
+          .content {
             transform: translateY(300px);
           }
         }
@@ -324,25 +320,25 @@
   }
 }
 
-@media (max-width:570px){
-  .authentication-container{
-    &::before{
+@media (max-width: 570px) {
+  .authentication-container {
+    &::before {
       bottom: 72%;
       left: 50%;
     }
-    &.sign-up-mode{
-      &::before{
+    &.sign-up-mode {
+      &::before {
         bottom: 28%;
         left: 50%;
       }
     }
-    .forms-container{
-      .signin-signup{
+    .forms-container {
+      .signin-signup {
         padding: 0 1.5rem;
       }
-      .panels-container{
-        .panel{
-          .content{
+      .panels-container {
+        .panel {
+          .content {
             padding: 0.5rem 1.5rem;
           }
         }

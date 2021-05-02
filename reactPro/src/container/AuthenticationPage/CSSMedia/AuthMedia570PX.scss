@@ -1,0 +1,30 @@
+@import 'src/css/_variables';
+@media (max-width: 570px) {
+  .authentication-container {
+    &::before {
+      bottom: 65%;
+      left: 50%;
+    }
+    &.sign-up-mode {
+      &::before {
+        bottom: 28%;
+        left: 50%;
+      }
+    }
+    .forms-container {
+      .signing-form {
+        padding: 0 1rem;
+      }
+      .signin-signup {
+        padding: 0 1.5rem;
+      }
+      .panels-container {
+        .panel {
+          .content {
+            padding: 0.5rem 1.5rem;
+          }
+        }
+      }
+    }
+  }
+}

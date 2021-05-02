@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { signOut, setCurrentUser } from 'store/auth/action';
@@ -22,7 +22,7 @@ const NavBar = props => {
   const { isLoggedIn } = useSelector(state => state.auth);
   const signOutBtn = () => {
     dispatch(signOut());
-    history.push('/signIn');
+    history.push('/auth');
   };
 
   return (
@@ -37,13 +37,13 @@ const NavBar = props => {
       />
       <ul className={`nav ${mbNav ? 'mb' : ''}`}>
         <li className="nav-item">
-          <Link to="/signUp" className="nav-link">
+          <Link to="/developers" className="nav-link">
             <UsergroupDeleteOutlined />
             <span className="link-text">Developers</span>
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/signUp" className="nav-link">
+          <Link to="/auth" className="nav-link">
             <IdcardOutlined />
             <span className="link-text">Sign Up</span>
           </Link>
@@ -58,7 +58,7 @@ const NavBar = props => {
           </li>
         ) : (
           <li className="nav-item">
-            <Link to="/signIn" className="nav-link">
+            <Link to="/auth" className="nav-link">
               <LoginOutlined />
               <span className="link-text">Sign In</span>
             </Link>

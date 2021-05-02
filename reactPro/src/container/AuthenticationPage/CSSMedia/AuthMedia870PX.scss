@@ -1,0 +1,87 @@
+@import 'src/css/_variables';
+@media (max-width: 870px) {
+  .authentication-container {
+    min-height: 800px;
+    height: 100vh;
+    &.sign-up-mode {
+      .forms-container {
+        .signin-signup {
+          top: 5%;
+          transform: translate(-50%, 0%);
+          left: 50%;
+        }
+      }
+      &::before {
+        bottom: 32%;
+        transform: translate(-50%, 100%);
+        right: initial;
+        left: 50%;
+      }
+      .panels-container {
+        .panel {
+          &.left-panel {
+            .content {
+              transform: translateY(-300px);
+            }
+          }
+        }
+      }
+    }
+    &::before {
+      width: 1500px;
+      height: 1500px;
+      left: 45%;
+      bottom: 60%;
+      transform: translateX(-50%);
+      right: initial;
+      top: initial;
+      transition: 2s ease-in-out;
+    }
+    .forms-container {
+      .signin-signup {
+        width: 100%;
+        left: 50%;
+        top: 70%;
+        transform: translate(-50%, -60%);
+        transition: 1s 0.8s ease-in-out;
+      }
+    }
+    .panels-container {
+      z-index: 10;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 2fr 1fr;
+      .panel {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        .content {
+          transition: 0.9s 0.8s ease-in-out;
+          padding-right: 15px;
+        }
+        h3 {
+          font-size: 1.2rem;
+        }
+        p {
+          font-size: 0.7rem;
+          padding: 0.5rem 0;
+        }
+        .btn {
+          width: 110px;
+          height: 49px;
+          font-size: 0.7rem;
+        }
+        &.left-panel {
+          padding: 2.5rem 8%;
+          grid-row: 1 / 2;
+        }
+        &.right-panel {
+          padding: 3rem 12% 2rem 17%;
+          grid-row: 3 / 4;
+          .content {
+            transform: translateY(300px);
+          }
+        }
+      }
+    }
+  }
+}

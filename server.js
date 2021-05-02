@@ -63,7 +63,7 @@ app.use('/api/posts', posts);
 // Server static assests if in production
 if (process.env.NODE_ENV === 'production') {
   //SET Static folder
-  app.user(express.static('reactPro/build'));
+  app.use(express.static('reactPro/build'));
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'reactPro', 'build', 'index.html'));

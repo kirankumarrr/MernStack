@@ -1,0 +1,8 @@
+
+@import 'src/css/_variables';
+@media (max-width: 470px) {
+  .authentication-container::before {
+    bottom: 60%;
+    left: 50%;
+  }
+}

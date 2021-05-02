@@ -8,7 +8,8 @@
     "server": "nodemon --inspect server",
     "client-install": "npm install --prefix reactPro",
     "client": "npm start --prefix reactPro",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix reactPro && npm run build --prefix reactPro"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

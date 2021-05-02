@@ -59,7 +59,7 @@ app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 
-//LOAD UI CODE IN HERE
+//LOAD UI CODE IN HERE BRANCH
 // Server static assests if in production
 if (process.env.NODE_ENV === 'production') {
   //SET Static folder

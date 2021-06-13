@@ -9,7 +9,7 @@ module.exports = {
     const operations = fetchedUsers.map((user) => {
         return db.collection('users').updateOne({ _id: user._id }, {
                 $set: {
-                  username: user.name
+                  username: user.username || user.name
                 }
         })          
     })

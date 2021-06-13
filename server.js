@@ -50,9 +50,9 @@ mongoose
     console.error(err);
   });
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World');
+// });
 
 // Use Routes
 app.use('/api/users', users);

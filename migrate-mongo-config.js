@@ -4,7 +4,7 @@ const dbPath = require('./config/keys')
 const config = {
   mongodb: {
     // TODO Change (or review) the url to your MongoDB:
-    url: dbPath.url,
+    url: dbPath.migrationURI,
 
     // TODO Change this to your database name:
     databaseName: dbPath.databaseName,

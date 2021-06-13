@@ -8,6 +8,16 @@ const SignUp = ({ loginFormValues, handleOnchange, handleSingUpSubmit }) => {
     <form action="" className="signing-form sign-up-form">
       <h2 className="signin-title">Sing Up</h2>
       <Input
+        placeholder="Username"
+        setIconClassName={'input-field-icon'}
+        isIconRequired
+        field={'username'}
+        inputSetClassName="input-field-element"
+        onChange={handleOnchange}
+        type={'text'}
+        value={('username' in loginFormValues && loginFormValues['username']) || ''}
+      />
+      <Input
         placeholder="Name"
         setIconClassName={'input-field-icon'}
         isIconRequired
@@ -60,12 +70,12 @@ const SignUp = ({ loginFormValues, handleOnchange, handleSingUpSubmit }) => {
         className="input-field-btn solid"
         onClick={handleSingUpSubmit}
       />
-      <p className="social-text">Or Sign with social platforms</p>
+      {/* <p className="social-text">Or Sign with social platforms</p>
       <div className="social-media">
         <a href="#" className="social-icon">
           <FacebookOutlined className="social-icon-fb" />
         </a>
-      </div>
+      </div> */}
     </form>
   );
 };

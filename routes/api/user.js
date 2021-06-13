@@ -46,13 +46,15 @@ router.post('/register',(req,res)=>{
                 const {
                     name,
                     email,
-                    password
+                    password,
+                    username
                 } = req.body;
                 const newUser = new User({
                     name,
                     email,
                     avatar,
-                    password
+                    password,
+                    username
                 });
                 // why genSalt for: set password encryption length to 10
                 bcrypt.genSalt(10,(err,salt)=>{

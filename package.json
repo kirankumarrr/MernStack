@@ -21,6 +21,7 @@
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
+    "migrate-mongo": "^8.2.2",
     "minimist": "^1.2.5",
     "mongoose": "^5.9.14",
     "passport": "^0.4.1",

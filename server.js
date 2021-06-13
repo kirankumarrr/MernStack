@@ -29,14 +29,6 @@ app.use(passport.initialize());
 //Passport Config
 require('./config/passport')(passport);
 
-//Connect to MongoDB
-/**
- *  DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. 
- *  To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
-
- mongoURI : 'mongodb://kirankumarrr:yg88vw@ds259144.mlab.com:59144/nodereactdevconnector', 
- mongodb+srv://kirankumarrr:yg88vw@cluster0-re3gq.mongodb.net/test?retryWrites=true
-*/
 
 mongoose
   .connect(dbPath, {

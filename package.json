@@ -14,24 +14,28 @@
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && npm run migrate:up"
   },
   "dependencies": {
+    "async": "^3.2.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "concurrently": "^5.2.0",
+    "colors": "^1.4.0",
+    "concurrently": "^6.2.0",
     "express": "^4.17.1",
-    "gravatar": "^1.8.0",
+    "gravatar": "^1.8.1",
     "jsonwebtoken": "^8.5.1",
-    "jwt-decode": "^2.2.0",
+    "jwt-decode": "^3.1.2",
     "migrate-mongo": "^8.2.2",
     "minimist": "^1.2.5",
-    "mongoose": "^5.9.14",
+    "mongoose": "^5.13.0",
+    "node-schedule": "^2.0.0",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
-    "validator": "^12.2.0"
+    "validator": "^13.6.0",
+    "winston": "^3.3.3"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.9"
   }
 }

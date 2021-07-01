@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
-
+const schedule = require('node-schedule');
+const colors = require("colors");
 // Passport:::
 // make verification
 // Using Passport we can make routes Private : Authetication Module
@@ -13,6 +14,7 @@ const passport = require('passport');
 const users = require('./routes/api/user');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/post');
+const reminders = require('./routes/api/reminders');
 
 const app = express();
 
@@ -36,7 +38,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then((res) => {
-    console.log('Connected to MongoDB');
+    console.log('Connected to Mongo̥DB');
   })
   .catch((err) => {
     console.error(err);
@@ -46,10 +48,23 @@ mongoose
 //   res.send('Hello World');
 // });
 
+
+
+// At a particular Date & time
+const someDate = new Date('2021-07-01T18:3:00')
+schedule.scheduleJob('cards-reminder-job','*/5 * * * * *',()=>{
+  // console.log("JOB RUN AT ",new Date().toString())
+  console.log(colors.black.bgYellow(`JOB RUN AT ${new Date().toString()}`));
+
+   
+  schedule.cancelJob('cards-reminder-job')
+})
+
 // Use Routes
 app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
+app.use('/api/reminders', reminders);
 
 //LOAD UI CODE IN HERE BRANCH
 // Server static assests if in production
@@ -65,3 +80,13 @@ if (process.env.NODE_ENV === 'production') {
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
+
+
+//Handle unhandled promises rejections
+process.on('unhandledRejection', (error, promise) => {
+  console.log(`Error: ${error.message}`.red);
+  //Close server and exist the process
+  //exit:(1)  : Means exit with one failure
+  server.close(() => process.exit(1));
+});

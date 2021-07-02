@@ -1,24 +1,18 @@
 const validateCardsInput = require("../../../validations/cardsReminder/cards");
-//Load User Model
+const mongoose = require("mongoose");
 const Cards = require("../../../models/Cards");
 const asyncHandler = require("../../../middlewares/async");
 const ErrorResponse = require("../../utils/errorResponse");
 
-exports.createCards = asyncHandler(async (req, res) => {
-  console.log("req.body", req.body);
+exports.createCards = asyncHandler(async (req, res,next) => {
   const { errors, isValid } = validateCardsInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
   } else {
-
-    const card = await Cards.find({name:req.body.name});
-    console.log(' req.params.cardId', card);
-    if (!card) {
+    const card = await Cards.find({ name: req.body.name });
+    if (card) {
       return next(
-        new ErrorResponse(
-          `Card already exist ${req.body.name}`,
-          404
-        )
+        new ErrorResponse(`Card already exist ${req.body.name}`, 404)
       );
     }
 
@@ -31,7 +25,6 @@ exports.createCards = asyncHandler(async (req, res) => {
   }
 });
 
-
 /*
  * @route : GET /api/reminders/cards
  * @desc : Get Single bootcamp
@@ -40,9 +33,50 @@ exports.createCards = asyncHandler(async (req, res) => {
 exports.fetchCards = asyncHandler(async (req, res, next) => {
   const cards = await Cards.find();
   if (!cards) {
-    return next(
-      new ErrorResponse(`cards failed to fetch`, 404)
-    );
+    return next(new ErrorResponse(`cards failed to fetch`, 404));
   }
   res.status(200).json({ success: true, data: cards });
+});
+
+/*
+ * @route : PUT /api/v1/bootcamps/:id
+ * @desc : Update bootcamp
+ * @access : Private
+ */
+exports.updateCards = asyncHandler(async (req, res, next) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return next(
+      new ErrorResponse(`Invalid MongoDb id : ${req.params.id}`, 404)
+    );
+  }
+
+  const cards = await Cards.findById(req.params.id);
+  console.log("req.params.id :", req.params.id);
+  if (!cards) {
+    return next(
+      new ErrorResponse(`Card not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  const { errors, isValid } = validateCardsInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  } else {
+    const updatedCard = await Cards.findOneAndUpdate(
+      req.params.id,
+      {
+        amount: req.body.amount,
+      },
+      { new: true }
+    );
+    if (!updatedCard) {
+      return next(
+        new ErrorResponse(
+          `Card failed to update with id of ${req.params.id}`,
+          400
+        )
+      );
+    }
+    res.status(200).json({ success: true, data: updatedCard });
+  }
 });

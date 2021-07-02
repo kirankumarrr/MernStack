@@ -15,11 +15,13 @@ const users = require('./routes/api/user');
 const profile = require('./routes/api/profile');
 const posts = require('./routes/api/post');
 const reminders = require('./routes/api/reminders');
-
+const errorHandler = require('./middlewares/error');
 const app = express();
 
 //DB config
 const dbPath = require('./config/keys').mongoURI;
+const { cardsMailer } = require('./mailers/mailers');
+const { cardScheduler } = require('./cornJobs/cardsScheduler');
 
 //Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -51,20 +53,16 @@ mongoose
 
 
 // At a particular Date & time
-const someDate = new Date('2021-07-01T18:3:00')
-schedule.scheduleJob('cards-reminder-job','*/5 * * * * *',()=>{
-  // console.log("JOB RUN AT ",new Date().toString())
-  console.log(colors.black.bgYellow(`JOB RUN AT ${new Date().toString()}`));
-
-   
-  schedule.cancelJob('cards-reminder-job')
-})
+// cardScheduler()
 
 // Use Routes
 app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 app.use('/api/reminders', reminders);
+
+
+app.use(errorHandler);
 
 //LOAD UI CODE IN HERE BRANCH
 // Server static assests if in production

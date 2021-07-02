@@ -14,9 +14,7 @@ const User = require('../../../models/User');
 const asyncHandler = require('../../../middlewares/async');
 
 exports.register = (req,res)=>{
-    console.log("req.body",req.body)
     const {errors, isValid} = validateRegisterInput(req.body)
-    console.log("Valid Register ? ",isValid)
     if(!isValid){
         return res.status(400).json(errors);
     }else{
@@ -67,15 +65,12 @@ exports.register = (req,res)=>{
 }
 exports.login = (req,res)=>{
     const {errors, isValid} = validateLoginInput(req.body);
-    
-    console.log("errors",errors)
     if(!isValid){
         return res.status(400).json(errors);
     }
     const {email,password} = req.body;
     
     User.findOne({email}).then(user=>{
-        console.log("user",user)
             if(!user){
                 errors.email = 'User not Found!!!';
                 return res.status(404).json(errors);
@@ -105,7 +100,6 @@ exports.login = (req,res)=>{
     // res.json({msg:"User Works"}) // note: If you pass 2 responses it will take initial One
 }
 exports.current = asyncHandler(async(req,res)=>{
-    console.log("res",res);
     const {id,name,email} = req.user;
     res.json({
         id,name,email

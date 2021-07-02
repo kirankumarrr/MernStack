@@ -8,7 +8,6 @@ module.exports = function validateCardsInput(data){
     data.name = !checkIsEmpty(data.name) ? data.name : '';
     // data.amount = !checkIsEmpty(data.amount) ? data.amount : '';
     data.date = !checkIsEmpty(data.date) ? data.date : '';
-    console.log('data :', data);
    
 
     /**
@@ -28,7 +27,6 @@ module.exports = function validateCardsInput(data){
     */
 
      var isoDateStringConverted = new Date(data.date)
-     console.log('data.date :', data.date);
      if(!Validator.isDate(isoDateStringConverted)){
         errors.date = 'Date is invalid';
     }

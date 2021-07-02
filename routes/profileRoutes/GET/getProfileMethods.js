@@ -42,7 +42,6 @@ exports.currentHandle = function(req,res){
 
 exports.currentUser = function(req,res){
     //Note here we are reading unique id from params
-    console.log('req.params.user_id',req.params.user_id)
     let errors={}
     Profile.findOne({user:2332434})
             .populate('user', ['name', 'avatar'])

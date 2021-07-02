@@ -1,0 +1,16 @@
+doctype html
+
+html(lang='en')
+  body
+    style.
+    table(style={color: 'red', background: 'green'})
+      tr
+        th Name
+        th Amount
+        th Date
+
+      each n in iterable
+        tr
+          td= n.name
+          td= n.amount
+          td= n.date

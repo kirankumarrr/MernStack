@@ -9,12 +9,12 @@ const { cardsMailer } = require("../mailers/mailers");
 //   schedule.cancelJob('cards-reminder-job')
 // })
 
-const cardScheduler = () => {
+const cardScheduler = (app) => {
   schedule.scheduleJob('cards-reminder-job','*/5 * * * * *',()=>{
     // console.log("JOB RUN AT ",new Date().toString())
     console.log(colors.black.bgYellow(`JOB RUN AT ${new Date().toString()}`));
   
-    cardsMailer().catch(console.error);
+    cardsMailer(app).catch(console.error);
     schedule.cancelJob('cards-reminder-job')
   })
 };

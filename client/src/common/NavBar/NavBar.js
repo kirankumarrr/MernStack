@@ -10,7 +10,8 @@ import {
   LogoutOutlined,
   IdcardOutlined,
   UsergroupDeleteOutlined,
-  UnorderedListOutlined
+  UnorderedListOutlined,
+  CreditCardOutlined
 } from '@ant-design/icons';
 
 import './NavBar.scss';
@@ -64,6 +65,12 @@ const NavBar = props => {
             </Link>
           </li>
         )}
+        <li className="nav-item">
+          <Link to="/cards" className="nav-link">
+            <CreditCardOutlined />
+            <span className="link-text">Cards</span>
+          </Link>
+        </li>
       </ul>
     </nav>
   );

@@ -12,7 +12,7 @@ const DashBoard = props => {
   const dispatch = useDispatch();
   const { profile, loading } = useSelector(state => state.profile);
   const { user } = useSelector(state => state.auth);
-  console.log('profile', profile);
+  // console.log('profile', profile);
 
   const getProfile = () => {
     // dispatch(setProfileLoading)
@@ -27,7 +27,7 @@ const DashBoard = props => {
   };
 
   useEffect(() => {
-    getProfile();
+    // getProfile();
     return () => {
       dispatch(clearCurrentProfile());
     };

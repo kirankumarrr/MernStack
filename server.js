@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const schedule = require('node-schedule');
-const colors = require("colors");
+const colors = require('colors');
 const pdf = require('express-pdf');
 const pug = require('pug');
 // Passport:::
@@ -30,8 +30,7 @@ const Cards = require('./models/Cards');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
-//pdf 
+//pdf
 app.use(pdf);
 
 //Passport middlewares
@@ -39,7 +38,6 @@ app.use(passport.initialize());
 
 //Passport Config
 require('./config/passport')(passport);
-
 
 mongoose
   .connect(dbPath, {
@@ -57,27 +55,27 @@ mongoose
 //   res.send('Hello World');
 // });
 
-
 // At a particular Date & time
 // cardScheduler(app)
 
-
-app.use('/pdfFromHTMLString', async function(req, res){
-  const cards = await Cards.find();
-  const dynamicHTML =pug.renderFile(__dirname + `\\mailers\\cardTemplate.pug`, {iterable: cards})
-  console.log('dynamicHTML :', dynamicHTML);
-  res.pdfFromHTML({
-      filename: 'generated.pdf',
-      htmlContent: dynamicHTML
-  });
-});
+// app.use('/pdfFromHTMLString', async function (req, res) {
+//   const cards = await Cards.find();
+//   const dynamicHTML = pug.renderFile(
+//     __dirname + `\\mailers\\cardTemplate.pug`,
+//     { iterable: cards }
+//   );
+//   console.log('dynamicHTML :', dynamicHTML);
+//   res.pdfFromHTML({
+//     filename: 'generated.pdf',
+//     htmlContent: dynamicHTML,
+//   });
+// });
 
 // Use Routes
 app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
 app.use('/api/reminders', reminders);
-
 
 app.use(errorHandler);
 
@@ -96,12 +94,8 @@ const port = process.env.PORT || 5000;
 
 const server = app.listen(
   port,
-  console.log(
-    `Server runnig on port  ${port}`.yellow
-      .underline.bold
-  )
+  console.log(`Server runnig on port  ${port}`.yellow.underline.bold)
 );
-
 
 //Handle unhandled promises rejections
 process.on('unhandledRejection', (error, promise) => {

@@ -1,16 +1,17 @@
-const validateCardsInput = require("../../../validations/cardsReminder/cards");
-const mongoose = require("mongoose");
-const Cards = require("../../../models/Cards");
-const asyncHandler = require("../../../middlewares/async");
-const ErrorResponse = require("../../utils/errorResponse");
+const validateCardsInput = require('../../../validations/cardsReminder/cards');
+const mongoose = require('mongoose');
+const Cards = require('../../../models/Cards');
+const asyncHandler = require('../../../middlewares/async');
+const ErrorResponse = require('../../utils/errorResponse');
 
-exports.createCards = asyncHandler(async (req, res,next) => {
+exports.createCards = asyncHandler(async (req, res, next) => {
   const { errors, isValid } = validateCardsInput(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
   } else {
     const card = await Cards.find({ name: req.body.name });
-    if (card) {
+    console.log('card :', card);
+    if (card.length > 0) {
       return next(
         new ErrorResponse(`Card already exist ${req.body.name}`, 404)
       );
@@ -44,6 +45,7 @@ exports.fetchCards = asyncHandler(async (req, res, next) => {
  * @access : Private
  */
 exports.updateCards = asyncHandler(async (req, res, next) => {
+  console.log('req.params.id :', req.params.id);
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return next(
       new ErrorResponse(`Invalid MongoDb id : ${req.params.id}`, 404)
@@ -51,7 +53,6 @@ exports.updateCards = asyncHandler(async (req, res, next) => {
   }
 
   const cards = await Cards.findById(req.params.id);
-  console.log("req.params.id :", req.params.id);
   if (!cards) {
     return next(
       new ErrorResponse(`Card not found with id of ${req.params.id}`, 404)
@@ -63,9 +64,10 @@ exports.updateCards = asyncHandler(async (req, res, next) => {
     return res.status(400).json(errors);
   } else {
     const updatedCard = await Cards.findOneAndUpdate(
-      req.params.id,
+      { _id: req.params.id },
       {
         amount: req.body.amount,
+        avaiable: req.body.avaiable,
       },
       { new: true }
     );

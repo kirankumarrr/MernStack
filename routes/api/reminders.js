@@ -13,13 +13,15 @@ const keys = require('../../config/keys');
 //Load User Model
 const User = require('../../models/User');
 const { protect } = require('../../middlewares/auth');
-const { register, login, current  } = require('../controllers/Users/users')
+const {
+  createCards,
+  fetchCards,
+  updateCards,
+} = require('../controllers/Reminders/Cards');
+//Protecting all below routes
+router.use(protect);
+router.route('/cards').post(createCards);
+router.route('/cards').get(fetchCards);
+router.route('/cards/:id').put(updateCards);
 
-
-
-router.route('/register').post(register);
-router.route('/login').post(login);
-router.route('/current').get(protect,current);
-
-
-module.exports = router;  
+module.exports = router;

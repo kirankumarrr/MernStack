@@ -17,6 +17,7 @@ import NavBar from 'common/NavBar/NavBar';
 import DashBoard from 'container/DashBoard/DashBoard';
 import AuthenticationPage from 'container/AuthenticationPage/AuthenticationPage';
 import { Footer } from 'common/Footer/Footer';
+import Cards from 'container/Cards/Cards';
 const App = () => {
   const dispatch = useDispatch();
   //TODO : check for Cookies
@@ -50,6 +51,7 @@ const App = () => {
           <Route exact path="/signin" component={Login} /> */}
         <PrivateRoute exact path="/" component={DashBoard} />
         <Route exact path="/auth" component={AuthenticationPage} />
+        <PrivateRoute exact path="/cards" component={Cards} />
       </main>
       <Footer />
     </div>

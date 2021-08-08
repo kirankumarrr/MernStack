@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import moment from 'moment';
 import MaterialTable from 'material-table';
-
+import 'date-fns';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker
+} from '@material-ui/pickers';
 function Cards() {
   const { useState } = React;
-
   const [columns, setColumns] = useState([
-    { title: 'Name', field: 'name' },
+    { title: 'Name', field: 'name', editable: 'never' },
     {
       title: 'Avaiable',
       field: 'avaiable',
@@ -28,10 +34,47 @@ function Cards() {
             'DD-MMM-YYYY hh:mm A'
           )}
         </td>
-      )
+      ),
+      editable: 'never'
     }
+    // {
+    //   title: 'Last Date',
+    //   field: 'date',
+    //   type: 'datetime',
+    //   render: rowData => (
+    //     <td>
+    //       {moment(moment(rowData.date), 'ddd DD-MMM-YYYY, hh:mm A').format(
+    //         'DD-MMM-YYYY hh:mm A'
+    //       )}
+    //     </td>
+    //   ),
+    //   editComponent: ({ value, onChange }) => (
+    //     <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    //       <Grid container justifyContent="space-around">
+    //         <KeyboardDatePicker
+    //           disableToolbar
+    //           variant="inline"
+    //           format="MM/dd/yyyy"
+    //           margin="normal"
+    //           id="date-picker-inline"
+    //           label="Date picker inline"
+    //           value={value}
+    //           onChange={onChangeDate}
+    //           KeyboardButtonProps={{
+    //             'aria-label': 'change date'
+    //           }}
+    //         />
+    //       </Grid>
+    //     </MuiPickersUtilsProvider>
+    //   )
+    // }
   ]);
   const [data, setData] = useState();
+
+  const onChangeDate = (...args) => {
+    console.log('...args', [...args]);
+  };
+
   const fetch = async () => {
     axios
       .get(`api/reminders/cards`, data)
@@ -67,6 +110,7 @@ function Cards() {
   };
 
   const updateCard = data => {
+    console.log('updateCard :', data);
     let isSuccess = false;
     data.date = new Date();
     const newdata = {

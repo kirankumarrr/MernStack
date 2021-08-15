@@ -45,7 +45,6 @@ exports.fetchCards = asyncHandler(async (req, res, next) => {
  * @access : Private
  */
 exports.updateCards = asyncHandler(async (req, res, next) => {
-  console.log('req.params.id :', req.params.id);
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     return next(
       new ErrorResponse(`Invalid MongoDb id : ${req.params.id}`, 404)
@@ -68,6 +67,7 @@ exports.updateCards = asyncHandler(async (req, res, next) => {
       {
         amount: req.body.amount,
         avaiable: req.body.avaiable,
+        date: req.body.date,
       },
       { new: true }
     );

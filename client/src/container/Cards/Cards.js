@@ -36,38 +36,40 @@ function Cards() {
         </td>
       ),
       editable: 'never'
+    },
+    {
+      title: 'Last Date',
+      field: 'date',
+      type: 'datetime',
+      render: rowData => {
+        return (
+          <td>
+            {moment(moment(rowData.date), 'ddd DD-MMM-YYYY, hh:mm A').format(
+              'DD-MMM-YYYY hh:mm A'
+            )}
+          </td>
+        );
+      },
+      editComponent: ({ value, onChange }) => (
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container justifyContent="space-around">
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Date picker inline"
+              value={value}
+              onChange={onChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date'
+              }}
+            />
+          </Grid>
+        </MuiPickersUtilsProvider>
+      )
     }
-    // {
-    //   title: 'Last Date',
-    //   field: 'date',
-    //   type: 'datetime',
-    //   render: rowData => (
-    //     <td>
-    //       {moment(moment(rowData.date), 'ddd DD-MMM-YYYY, hh:mm A').format(
-    //         'DD-MMM-YYYY hh:mm A'
-    //       )}
-    //     </td>
-    //   ),
-    //   editComponent: ({ value, onChange }) => (
-    //     <MuiPickersUtilsProvider utils={DateFnsUtils}>
-    //       <Grid container justifyContent="space-around">
-    //         <KeyboardDatePicker
-    //           disableToolbar
-    //           variant="inline"
-    //           format="MM/dd/yyyy"
-    //           margin="normal"
-    //           id="date-picker-inline"
-    //           label="Date picker inline"
-    //           value={value}
-    //           onChange={onChangeDate}
-    //           KeyboardButtonProps={{
-    //             'aria-label': 'change date'
-    //           }}
-    //         />
-    //       </Grid>
-    //     </MuiPickersUtilsProvider>
-    //   )
-    // }
   ]);
   const [data, setData] = useState();
 
@@ -109,17 +111,16 @@ function Cards() {
     // return isSuccess
   };
 
-  const updateCard = data => {
-    console.log('updateCard :', data);
+  const updateCard = (newData, oldData) => {
     let isSuccess = false;
     data.date = new Date();
-    const newdata = {
-      ...data,
-      amount: +data.amount,
-      avaiable: +data.avaiable
+    const newPayload = {
+      ...newData,
+      amount: +newData.amount,
+      avaiable: +newData.avaiable
     };
     return axios
-      .put(`api/reminders/cards/${newdata._id}`, newdata)
+      .put(`api/reminders/cards/${newPayload._id}`, newPayload)
       .then(response => {
         fetch();
         return response;
@@ -158,7 +159,7 @@ function Cards() {
         data={data}
         editable={{
           onRowAdd: newData => createCard(newData),
-          onRowUpdate: (newData, oldData) => updateCard(newData),
+          onRowUpdate: (newData, oldData) => updateCard(newData, oldData),
           onRowDelete: oldData =>
             new Promise((resolve, reject) => {
               setTimeout(() => {

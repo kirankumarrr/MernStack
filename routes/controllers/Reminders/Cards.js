@@ -10,7 +10,6 @@ exports.createCards = asyncHandler(async (req, res, next) => {
     return res.status(400).json(errors);
   } else {
     const card = await Cards.find({ name: req.body.name });
-    console.log('card :', card);
     if (card.length > 0) {
       return next(
         new ErrorResponse(`Card already exist ${req.body.name}`, 404)

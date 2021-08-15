@@ -67,6 +67,7 @@ exports.updateCards = asyncHandler(async (req, res, next) => {
         amount: req.body.amount,
         avaiable: req.body.avaiable,
         date: req.body.date,
+        updatedAt: new Date(),
       },
       { new: true }
     );

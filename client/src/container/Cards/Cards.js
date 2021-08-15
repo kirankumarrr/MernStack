@@ -27,7 +27,7 @@ function Cards() {
       minWidth: '200px'
     },
     {
-      title: 'update At',
+      title: 'Avaiable Amount last updated',
       field: 'updatedAt',
       render: rowData => (
         <td>

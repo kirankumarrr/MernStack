@@ -23,7 +23,8 @@ function Cards() {
     {
       title: 'Amount to Be paid',
       field: 'amount',
-      initialEditValue: '0'
+      initialEditValue: '0',
+      minWidth: '200px'
     },
     {
       title: 'update At',
@@ -35,17 +36,18 @@ function Cards() {
           )}
         </td>
       ),
-      editable: 'never'
+      editable: 'never',
+      minWidth: '200px'
     },
     {
-      title: 'Last Date',
+      title: 'Last Date to Pay Bill',
       field: 'date',
       type: 'datetime',
       render: rowData => {
         return (
           <td>
             {moment(moment(rowData.date), 'ddd DD-MMM-YYYY, hh:mm A').format(
-              'DD-MMM-YYYY hh:mm A'
+              'DD-MMM-YYYY'
             )}
           </td>
         );
@@ -68,7 +70,8 @@ function Cards() {
             />
           </Grid>
         </MuiPickersUtilsProvider>
-      )
+      ),
+      minWidth: '200px'
     }
   ]);
   const [data, setData] = useState();
@@ -171,6 +174,9 @@ function Cards() {
                 resolve();
               }, 1000);
             })
+        }}
+        options={{
+          paging: false
         }}
       />
     </div>

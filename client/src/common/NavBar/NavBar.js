@@ -68,7 +68,14 @@ const NavBar = props => {
         <li className="nav-item">
           <Link to="/cards" className="nav-link">
             <CreditCardOutlined />
-            <span className="link-text">Cards</span>
+            <span
+              className="link-text"
+              onClick={() => {
+                setmbNav(false);
+              }}
+            >
+              Cards
+            </span>
           </Link>
         </li>
       </ul>

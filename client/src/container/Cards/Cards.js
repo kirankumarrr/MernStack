@@ -14,7 +14,7 @@ import {
 function Cards() {
   const { useState } = React;
   const [columns, setColumns] = useState([
-    { title: 'Name', field: 'name', editable: 'never' },
+    { title: 'Name', field: 'name', editable: 'onAdd' },
     {
       title: 'Avaiable',
       field: 'avaiable',

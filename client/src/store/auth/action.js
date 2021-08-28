@@ -24,7 +24,7 @@ export const submitLogin = (user, history) => async dispatch => {
     .post(`api/users/login`, user)
     .then(response => {
       var dt = new Date();
-      var setTime = dt.setSeconds(dt.getSeconds() + 1000);
+      var setTime = dt.setSeconds(dt.getSeconds() + 300000);
       //dt.setSeconds( dt.getSeconds() + 10 );
       // console.log('TIME',new Date(setTime).toUTCString())
       document.cookie = `jwtToken=${response.data.token}; expires= ${new Date(

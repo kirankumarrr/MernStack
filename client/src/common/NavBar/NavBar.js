@@ -36,14 +36,14 @@ const NavBar = props => {
         className="navbar-hamberge"
         onClick={() => setmbNav(r => !r)}
       />
-      <ul className={`nav ${mbNav ? 'mb' : ''}`}>
-        <li className="nav-item">
+      {/* <ul className={`nav ${mbNav ? 'mb' : ''}`}> */}
+      {/* <li className="nav-item">
           <Link to="/developers" className="nav-link">
             <UsergroupDeleteOutlined />
             <span className="link-text">Developers</span>
           </Link>
-        </li>
-        <li className="nav-item">
+        </li> */}
+      {/* <li className="nav-item">
           <Link to="/auth" className="nav-link">
             <IdcardOutlined />
             <span className="link-text">Sign Up</span>
@@ -64,8 +64,8 @@ const NavBar = props => {
               <span className="link-text">Sign In</span>
             </Link>
           </li>
-        )}
-        <li className="nav-item">
+        )} */}
+      {/* <li className="nav-item">
           <Link to="/cards" className="nav-link">
             <CreditCardOutlined />
             <span
@@ -78,7 +78,7 @@ const NavBar = props => {
             </span>
           </Link>
         </li>
-      </ul>
+      </ul> */}
     </nav>
   );
 };

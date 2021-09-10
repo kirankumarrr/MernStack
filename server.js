@@ -6,6 +6,7 @@ const schedule = require('node-schedule');
 const colors = require('colors');
 const pdf = require('express-pdf');
 const pug = require('pug');
+const nodeForge = require('node-forge');
 // Passport:::
 // make verification
 // Using Passport we can make routes Private : Authetication Module
@@ -21,7 +22,10 @@ const errorHandler = require('./middlewares/error');
 const app = express();
 
 //DB config
-const dbPath = require('./config/keys').mongoURI;
+const dbPath =
+  process.env.NODE_ENV === 'production'
+    ? require('./config/keys').mongoURI
+    : require('./config/keys').mongoURILocal;
 const { cardsMailer } = require('./mailers/mailers');
 const { cardScheduler } = require('./cornJobs/cardsScheduler');
 const Cards = require('./models/Cards');

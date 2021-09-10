@@ -11,32 +11,58 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker
 } from '@material-ui/pickers';
+
+function getDateColors(inputDate) {
+  var a = moment(new Date());
+  var b = moment(inputDate);
+  const key = a.diff(b, 'days');
+  switch (key) {
+    case 0:
+      return '#78FF03';
+    case 1:
+      return '#FAFF03';
+    case 2:
+      return '#FFAD03';
+
+    default:
+      return '#FF5703';
+  }
+}
+
 function Cards() {
   const { useState } = React;
   const [columns, setColumns] = useState([
     { title: 'Name', field: 'name', editable: 'onAdd' },
     {
-      title: 'Avaiable',
+      title: 'Available',
       field: 'avaiable',
-      initialEditValue: '0'
-    },
-    {
-      title: 'Amount to Be paid',
-      field: 'amount',
       initialEditValue: '0',
-      minWidth: '200px'
+      minWidth: '100px'
     },
+
     {
-      title: 'Avaiable Amount last updated',
+      title: 'Available Amount last updated',
       field: 'updatedAt',
       render: rowData => (
-        <td>
+        <td
+          style={{
+            backgroundColor: getDateColors(rowData.updatedAt),
+            padding: '10px',
+            fontWeight: 'bold'
+          }}
+        >
           {moment(moment(rowData.updatedAt), 'ddd DD-MMM-YYYY, hh:mm A').format(
             'DD-MMM-YYYY hh:mm A'
           )}
         </td>
       ),
       editable: 'never',
+      minWidth: '250px'
+    },
+    {
+      title: 'Amount to be paid',
+      field: 'amount',
+      initialEditValue: '0',
       minWidth: '200px'
     },
     {
@@ -45,7 +71,16 @@ function Cards() {
       type: 'datetime',
       render: rowData => {
         return (
-          <td>
+          <td
+            style={{
+              backgroundColor:
+                rowData.amount !== 0
+                  ? getDateColors(rowData.date, rowData.amount)
+                  : '#05ACFF',
+              padding: '10px',
+              fontWeight: 'bold'
+            }}
+          >
             {moment(moment(rowData.date), 'ddd DD-MMM-YYYY, hh:mm A').format(
               'DD-MMM-YYYY'
             )}
@@ -147,7 +182,7 @@ function Cards() {
           padding: '10px'
         }}
       >
-        <h1>Card Details</h1>
+        <h4>Card Details</h4>
         <button
           onClick={() => {
             fetch();
@@ -162,18 +197,18 @@ function Cards() {
         data={data}
         editable={{
           onRowAdd: newData => createCard(newData),
-          onRowUpdate: (newData, oldData) => updateCard(newData, oldData),
-          onRowDelete: oldData =>
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                const dataDelete = [...data];
-                const index = oldData.tableData.id;
-                dataDelete.splice(index, 1);
-                setData([...dataDelete]);
+          onRowUpdate: (newData, oldData) => updateCard(newData, oldData)
+          // onRowDelete: oldData =>
+          //   new Promise((resolve, reject) => {
+          //     setTimeout(() => {
+          //       const dataDelete = [...data];
+          //       const index = oldData.tableData.id;
+          //       dataDelete.splice(index, 1);
+          //       setData([...dataDelete]);
 
-                resolve();
-              }, 1000);
-            })
+          //       resolve();
+          //     }, 1000);
+          //   })
         }}
         options={{
           paging: false

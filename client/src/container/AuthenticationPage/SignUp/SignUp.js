@@ -15,7 +15,9 @@ const SignUp = ({ loginFormValues, handleOnchange, handleSingUpSubmit }) => {
         inputSetClassName="input-field-element"
         onChange={handleOnchange}
         type={'text'}
-        value={('username' in loginFormValues && loginFormValues['username']) || ''}
+        value={
+          ('username' in loginFormValues && loginFormValues['username']) || ''
+        }
       />
       <Input
         placeholder="Name"
@@ -66,7 +68,7 @@ const SignUp = ({ loginFormValues, handleOnchange, handleSingUpSubmit }) => {
       />
       <input
         type="submit"
-        value="Login"
+        value="Sign Up"
         className="input-field-btn solid"
         onClick={handleSingUpSubmit}
       />

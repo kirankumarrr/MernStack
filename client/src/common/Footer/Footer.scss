@@ -5,4 +5,8 @@ footer.footer {
   height: 50px;
   background: #000;
   color: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
 }

@@ -49,9 +49,10 @@ const App = () => {
         {/* 
           <Route exact path="/signup" component={SingUp} />
           <Route exact path="/signin" component={Login} /> */}
-        <PrivateRoute exact path="/" component={DashBoard} />
-        <Route exact path="/auth" component={AuthenticationPage} />
-        <PrivateRoute exact path="/cards" component={Cards} />
+        {/* <PrivateRoute exact path="/" component={Cards} /> */}
+        {/* {/* <Route exact path="/auth" component={AuthenticationPage} /> */}
+        <Route exact path="/" component={Cards} />
+        {/* <PrivateRoute exact path="/cards" component={Cards} /> */}
       </main>
       <Footer />
     </div>

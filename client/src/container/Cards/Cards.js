@@ -12,10 +12,24 @@ import {
   KeyboardDatePicker
 } from '@material-ui/pickers';
 
+function daysBetween(first, second) {
+  // Copy date parts of the timestamps, discarding the time parts.
+  var one = new Date(first.getFullYear(), first.getMonth(), first.getDate());
+  var two = new Date(second.getFullYear(), second.getMonth(), second.getDate());
+
+  // Do the math.
+  var millisecondsPerDay = 1000 * 60 * 60 * 24;
+  var millisBetween = two.getTime() - one.getTime();
+  var days = millisBetween / millisecondsPerDay;
+
+  // Round down.
+  return Math.floor(days);
+
+  // it will return date difference in days
+}
+
 function getDateColors(inputDate) {
-  var a = moment(new Date());
-  var b = moment(inputDate);
-  const key = a.diff(b, 'days');
+  const key = daysBetween(new Date(inputDate), new Date());
   switch (key) {
     case 0:
       return '#78FF03';
@@ -44,17 +58,24 @@ function Cards() {
       title: 'Available Amount last updated',
       field: 'updatedAt',
       render: rowData => (
-        <td
-          style={{
-            backgroundColor: getDateColors(rowData.updatedAt),
-            padding: '10px',
-            fontWeight: 'bold'
-          }}
-        >
-          {moment(moment(rowData.updatedAt), 'ddd DD-MMM-YYYY, hh:mm A').format(
-            'DD-MMM-YYYY hh:mm A'
-          )}
-        </td>
+        <table>
+          <tbody>
+            <tr>
+              <td
+                style={{
+                  backgroundColor: getDateColors(rowData.updatedAt),
+                  padding: '10px',
+                  fontWeight: 'bold'
+                }}
+              >
+                {moment(
+                  moment(rowData.updatedAt),
+                  'ddd DD-MMM-YYYY, hh:mm A'
+                ).format('DD-MMM-YYYY hh:mm A')}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       ),
       editable: 'never',
       minWidth: '250px'
@@ -71,20 +92,27 @@ function Cards() {
       type: 'datetime',
       render: rowData => {
         return (
-          <td
-            style={{
-              backgroundColor:
-                rowData.amount !== 0
-                  ? getDateColors(rowData.date, rowData.amount)
-                  : '#05ACFF',
-              padding: '10px',
-              fontWeight: 'bold'
-            }}
-          >
-            {moment(moment(rowData.date), 'ddd DD-MMM-YYYY, hh:mm A').format(
-              'DD-MMM-YYYY'
-            )}
-          </td>
+          <table>
+            <tbody>
+              <tr>
+                <td
+                  style={{
+                    backgroundColor:
+                      rowData.amount !== 0
+                        ? getDateColors(rowData.date, rowData.amount)
+                        : '#05ACFF',
+                    padding: '10px',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  {moment(
+                    moment(rowData.date),
+                    'ddd DD-MMM-YYYY, hh:mm A'
+                  ).format('DD-MMM-YYYY')}
+                </td>
+              </tr>
+            </tbody>
+          </table>
         );
       },
       editComponent: ({ value, onChange }) => (

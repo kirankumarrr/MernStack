@@ -19,7 +19,7 @@ const {
   updateCards,
 } = require('../controllers/Reminders/Cards');
 //Protecting all below routes
-router.use(protect);
+// router.use(protect);
 router.route('/cards').post(createCards);
 router.route('/cards').get(fetchCards);
 router.route('/cards/:id').put(updateCards);

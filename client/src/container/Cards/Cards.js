@@ -1,16 +1,14 @@
-import React, { Component, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import MaterialTable from 'material-table';
 import 'date-fns';
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker
-} from '@material-ui/pickers';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import Loader from 'common/Loader';
 
 function daysBetween(first, second) {
   // Copy date parts of the timestamps, discarding the time parts.
@@ -45,7 +43,7 @@ function getDateColors(inputDate) {
 
 function Cards() {
   const { useState } = React;
-  const [columns, setColumns] = useState([
+  const [columns] = useState([
     { title: 'Name', field: 'name', editable: 'onAdd' },
     {
       title: 'Available',
@@ -116,46 +114,39 @@ function Cards() {
         );
       },
       editComponent: ({ value, onChange }) => (
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Grid container justifyContent="space-around">
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="Date picker inline"
+        <Grid container justifyContent="space-around">
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
               value={value}
               onChange={onChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date'
-              }}
+              renderInput={(params) => <TextField {...params} />}
+              format="MM/dd/yyyy"
             />
-          </Grid>
-        </MuiPickersUtilsProvider>
+          </LocalizationProvider>
+
+        </Grid>
       ),
       minWidth: '200px'
     }
   ]);
   const [data, setData] = useState();
-
-  const onChangeDate = (...args) => {
-    console.log('...args', [...args]);
-  };
-
+  const [isSuccess, setIsSuccess] = useState(false)
   const fetch = async () => {
+    setIsSuccess(true)
     axios
       .get(`api/reminders/cards`, data)
       .then(response => {
+        setIsSuccess(false)
         setData(response.data.data);
       })
       .catch(error => {
         console.log('error :', error);
+        setIsSuccess(false)
       });
   };
 
   const createCard = data => {
-    let isSuccess = false;
+    setIsSuccess(true)
     data.date = new Date();
     const newdata = {
       ...data,
@@ -166,19 +157,18 @@ function Cards() {
       .post(`api/reminders/cards`, newdata)
       .then(response => {
         fetch();
-        isSuccess = true;
+        setIsSuccess(false)
         return response;
       })
       .catch(error => {
         console.log('Failed to created :', error);
+        setIsSuccess(false)
         return error;
       });
-
-    // return isSuccess
   };
 
   const updateCard = (newData, oldData) => {
-    let isSuccess = false;
+    setIsSuccess(true)
     data.date = new Date();
     const newPayload = {
       ...newData,
@@ -190,9 +180,11 @@ function Cards() {
       .then(response => {
         fetch();
         return response;
+        // setIsSuccess(false)
       })
       .catch(error => {
         console.log('Failed to created :', error);
+        setIsSuccess(false)
         return error;
       });
   };
@@ -203,6 +195,7 @@ function Cards() {
 
   return (
     <div>
+      <Loader isOpen={isSuccess} />
       <div
         style={{
           display: 'flex',
@@ -219,29 +212,32 @@ function Cards() {
           Refresh
         </button>
       </div>
-      <MaterialTable
-        title="Cards View"
-        columns={columns}
-        data={data}
-        editable={{
-          onRowAdd: newData => createCard(newData),
-          onRowUpdate: (newData, oldData) => updateCard(newData, oldData)
-          // onRowDelete: oldData =>
-          //   new Promise((resolve, reject) => {
-          //     setTimeout(() => {
-          //       const dataDelete = [...data];
-          //       const index = oldData.tableData.id;
-          //       dataDelete.splice(index, 1);
-          //       setData([...dataDelete]);
+      {
+        data && data.length > 0 ? <MaterialTable
+          title="Cards View"
+          columns={columns}
+          data={data}
+          editable={{
+            onRowAdd: newData => createCard(newData),
+            onRowUpdate: (newData, oldData) => updateCard(newData, oldData)
+            // onRowDelete: oldData =>
+            //   new Promise((resolve, reject) => {
+            //     setTimeout(() => {
+            //       const dataDelete = [...data];
+            //       const index = oldData.tableData.id;
+            //       dataDelete.splice(index, 1);
+            //       setData([...dataDelete]);
 
-          //       resolve();
-          //     }, 1000);
-          //   })
-        }}
-        options={{
-          paging: false
-        }}
-      />
+            //       resolve();
+            //     }, 1000);
+            //   })
+          }}
+          options={{
+            paging: false
+          }}
+        /> : <Loader isOpen />
+      }
+
     </div>
   );
 }

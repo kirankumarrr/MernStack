@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Cards = require('../../../models/Cards');
 const asyncHandler = require('../../../middlewares/async');
 const ErrorResponse = require('../../utils/errorResponse');
+const Dynamic = require('../../../models/Dynamic');
 
 exports.createCards = asyncHandler(async (req, res, next) => {
   const { errors, isValid } = validateCardsInput(req.body);
@@ -80,5 +81,77 @@ exports.updateCards = asyncHandler(async (req, res, next) => {
       );
     }
     res.status(200).json({ success: true, data: updatedCard });
+  }
+});
+
+/*
+ * @route : POST /api/reminders/dynamiCards
+ * @desc : POST Single bootcamp
+ * @access : PRIVATE
+ */
+exports.dynamiCards = asyncHandler(async (req, res, next) => {
+  const year = req.body.year;
+  const month = req.body.month;
+  const isItemExist = await Dynamic.find({ year, month }).lean();
+  if (isItemExist && isItemExist.length > 0) {
+    res
+      .status(401)
+      .json({ success: false, data: 'Year and Month Already Exist' });
+  } else {
+    const dynamicCard = await Dynamic.create(req.body);
+    res.status(200).json({ success: true, data: dynamicCard });
+  }
+});
+
+/*
+ * @route : PUT /api/reminders/dynamiCards
+ * @desc : PUT Single bootcamp
+ * @access : PRIVATE
+ */
+exports.updateDynamicCards = asyncHandler(async (req, res, next) => {
+  const year = req.params.year;
+  const month = req.params.month;
+  const dynamicCard = await Dynamic.find({ year, month }).lean();
+
+  if (dynamicCard && dynamicCard.length > 0) {
+    const cards = Object.assign([], dynamicCard[0].cards);
+
+    const cardIndex = cards.findIndex((c) => c.name === req.body.name);
+
+    if (cardIndex !== -1) {
+      cards[cardIndex] = req.body;
+    } else {
+      cards.push(req.body);
+    }
+
+    const statusUpdated = await Dynamic.updateOne(
+      { year, month },
+      {
+        $set: { cards: cards },
+      }
+    );
+
+    console.log('statusUpdated', statusUpdated);
+
+    res.status(200).json({ success: true, data: statusUpdated });
+  } else {
+    res.status(404).json({ success: false, data: 'Failed to update' });
+  }
+});
+
+/*
+ * @route : GET /api/reminders/dynamiCards
+ * @desc : GET Single bootcamp
+ * @access : PUBLIC
+ */
+exports.getDynamiCards = asyncHandler(async (req, res, next) => {
+  const year = req.params.year;
+  const month = req.params.month;
+  const dynamicCard = await Dynamic.find({ year, month }).lean();
+  if (dynamicCard && dynamicCard.length > 0) {
+    const cards = dynamicCard[0].cards;
+    res.status(200).json({ success: true, data: cards });
+  } else {
+    res.status(404).json({ success: true, data: 'Details not Found' });
   }
 });

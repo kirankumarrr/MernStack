@@ -17,11 +17,17 @@ const {
   createCards,
   fetchCards,
   updateCards,
+  dynamiCards,
+  getDynamiCards,
+  updateDynamicCards
 } = require('../controllers/Reminders/Cards');
 //Protecting all below routes
 // router.use(protect);
 router.route('/cards').post(createCards);
 router.route('/cards').get(fetchCards);
 router.route('/cards/:id').put(updateCards);
+router.route('/dynamic').post(dynamiCards);
+router.route('/dynamic/:year/:month').put(updateDynamicCards);
+router.route('/dynamic/:year/:month').get(getDynamiCards);
 
 module.exports = router;

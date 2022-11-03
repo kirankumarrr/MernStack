@@ -94,9 +94,5 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.4.1",
     "prettier": "^1.19.1"
-  },
-  "engines": {
-    "node": "14.17.0",
-    "npm": "6.14.13"
   }
 }

@@ -17,6 +17,7 @@
     "jwt-decode": "^2.2.0",
     "material-table": "^1.69.3",
     "minimist": "^1.2.6",
+    "moment": "^2.29.4",
     "node-sass": "^4.14.1",
     "react": "^16.14.0",
     "react-bootstrap": "^1.6.4",

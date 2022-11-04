@@ -27,7 +27,7 @@
     "jwt-decode": "^3.1.2",
     "migrate-mongo": "^8.2.3",
     "minimist": "^1.2.5",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "mongoose": "^5.13.5",
     "node-forge": "^0.10.0",
     "node-schedule": "^2.0.0",
